@@ -19,7 +19,7 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 
 #' Average engagement by hour
 #'
-#' Creates a line chart of average number of likes and retweets received based on hour of tweet posted
+#' Creates a line chart of average number of likes and retweets received based on hour of tweet posted.
 #'
 #' @param tweets_df dataframe
 #'
