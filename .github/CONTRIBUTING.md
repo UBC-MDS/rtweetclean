@@ -1,109 +1,47 @@
+# Contributing to rtweetclean
 
+This outlines how to propose a change to rtweetclean. 
+For more detailed info about contributing to this, and other tidyverse packages, please see the
+[**development contributing guide**](https://rstd.io/tidy-contrib). 
 
+## Fixing typos
 
-# Contributing
+You can fix typos, spelling mistakes, or grammatical errors in the documentation directly using the GitHub web interface, as long as the changes are made in the _source_ file. 
+This generally means you'll need to edit [roxygen2 comments](https://roxygen2.r-lib.org/articles/roxygen2.html) in an `.R`, not a `.Rd` file. 
+You can find the `.R` file that generates the `.Rd` by reading the comment in the first line.
 
+## Bigger changes
 
-Contributions are welcome, and they are greatly appreciated! Every little bit
-helps, and credit will always be given.
+If you want to make a bigger change, it's a good idea to first file an issue and make sure someone from the team agrees that it’s needed. 
+If you’ve found a bug, please file an issue that illustrates the bug with a minimal 
+[reprex](https://www.tidyverse.org/help/#reprex) (this will also help you write a unit test, if needed).
 
-You can contribute in many ways:
+### Pull request process
 
-Types of Contributions
-----------------------
+*   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("UBC-MDS/rtweetclean", fork = TRUE)`.
 
-## Report Bugs
+*   Install all development dependences with `devtools::install_dev_deps()`, and then make sure the package passes R CMD check by running `devtools::check()`. 
+    If R CMD check doesn't pass cleanly, it's a good idea to ask for help before continuing. 
+*   Create a Git branch for your pull request (PR). We recommend using `usethis::pr_init("brief-description-of-change")`.
 
+*   Make your changes, commit to git, and then create a PR by running `usethis::pr_push()`, and following the prompts in your browser.
+    The title of your PR should briefly describe the change.
+    The body of your PR should contain `Fixes #issue-number`.
 
-Report bugs at https://github.com/UBC-MDS/tweepyclean/issues.
+*  For user-facing changes, add a bullet to the top of `NEWS.md` (i.e. just below the first header). Follow the style described in <https://style.tidyverse.org/news.html>.
 
-If you are reporting a bug, please include:
+### Code style
 
-* Your operating system name and version.
-* Any details about your local setup that might be helpful in troubleshooting.
-* Detailed steps to reproduce the bug.
+*   New code should follow the tidyverse [style guide](https://style.tidyverse.org). 
+    You can use the [styler](https://CRAN.R-project.org/package=styler) package to apply these styles, but please don't restyle code that has nothing to do with your PR.  
 
-## Fix Bugs
+*  We use [roxygen2](https://cran.r-project.org/package=roxygen2), with [Markdown syntax](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd-formatting.html), for documentation.  
 
+*  We use [testthat](https://cran.r-project.org/package=testthat) for unit tests. 
+   Contributions with test cases included are easier to accept.  
 
-Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
-wanted" is open to whoever wants to implement it.
+## Code of Conduct
 
-## Implement Features
-
-
-Look through the GitHub issues for features. Anything tagged with "enhancement"
-and "help wanted" is open to whoever wants to implement it.
-
-## Write Documentation
-
-
-tweepyclean could always use more documentation, whether as part of the
-official tweepyclean docs, in docstrings, or even on the web in blog posts,
-articles, and such.
-
-## Submit Feedback
-
-
-The best way to send feedback is to file an issue at https://github.com/UBC-MDS/tweepyclean/issues.
-
-If you are proposing a feature:
-
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)
-
-Get Started!
-------------
-
-Ready to contribute? Here's how to set up `tweepyclean` for local development.
-
-1. Fork the `tweepyclean` repo on GitHub.
-2. Clone your fork locally::
-
-    $ git clone git@github.com:your_name_here/tweepyclean.git
-
-3. Install your local copy (it is recommended to do this with a virtual environment). The method of installation will depend on the packaging library being used.
-   For example, if `setuptools` is being used (a setup.py file is present), install tweepyclean with:
-
-   .. code-block:: console
-
-       $ python setup.py install
-
-   If `poetry` is being used (poetry.lock and pyproject.toml files are present), install tweepyclean with:
-
-   .. code-block:: console
-
-       $ poetry install
-
-4. Create a branch for local development and make your changes locally::
-
-    $ git checkout -b name-of-your-bugfix-or-feature
-
-5. When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests.
-   For example, if the package uses the poetry package management library, black formatting style and pytest for testing::
-
-    $ poetry run black tweepyclean
-    $ poetry run pytest
-
-6. Commit your changes and push your branch to GitHub::
-
-    $ git add .
-    $ git commit -m "Your detailed description of your changes."
-    $ git push origin name-of-your-bugfix-or-feature
-
-7. Submit a pull request through the GitHub website.
-
-Pull Request Guidelines
------------------------
-
-Before you submit a pull request, check that it meets these guidelines:
-
-1. The pull request should include additional tests if appropriate.
-2. If the pull request adds functionality, the docs should be updated.
-3. The pull request should work for all currently supported operating systems and versions of Python.
-
-Code of Conduct
----------------
-Please note that the tweepyclean project is released with a Contributor Code of Conduct. By contributing to this project you agree to abide by its terms.
+Please note that the rtweetclean project is released with a
+[Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this
+project you agree to abide by its terms.
