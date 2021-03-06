@@ -16,7 +16,8 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 
 }
 
-sentiment_total <- function(tweets, drop_sentiment == FALSE) {
+
+sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 
 #' Sentiment Word Counts
 #'
