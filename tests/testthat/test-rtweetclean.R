@@ -42,8 +42,18 @@ test_that('tweet_words is not returning the correct dataframe', {
                                         "4th tweet",
                                         "fifth tweet"))
   # create expected output data
-  expected_output = data.frame(words = c("tweet", "is", "this"),
+  expected_output_1 = data.frame(words = c("tweet"),
+                                 count = as.integer(c(4)))
+  expected_output_3 = data.frame(words = c("tweet", "is", "this"),
                                count = as.integer(c(4, 3, 2)))
+  expected_output_1000 = data.frame(words =  c("tweet", "is", "this", "example", "words", "with", "third",
+                                              "fifth", "few", "extra", "a", "4th", "2", "1"),
+                                    count = as.integer(c(4,3,2,2,1,1,1,1,1,1,1,1,1,1)))
 
-  testthat::expect_true(dplyr::all_equal(tweet_words(input_data, 3), expected_output))
+
+  # tests
+  testthat::expect_true(dplyr::all_equal(tweet_words(input_data, 3), expected_output_3))
+  testthat::expect_true(dplyr::all_equal(tweet_words(input_data, 1), expected_output_1))
+  testthat::expect_true(dplyr::all_equal(tweet_words(input_data, 1000), expected_output_1000))
+
 })
