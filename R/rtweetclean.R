@@ -10,8 +10,8 @@
 #'  hashtags: contains the extracted hashtags from text
 #'  sentiment: contains the a sentiment polarity score
 #'  flesch_readability: contains the a flesch readability score
-#'  proportion_of_avg_retweets: a proportion value of how many retweets a tweet received compared to the account average 
-#'  proportion_of_avg_favorites: a proportion value of how many favorites a tweet received compared to the account average 
+#'  proportion_of_avg_retweets: a proportion value of how many retweets a tweet received compared to the account average
+#'  proportion_of_avg_favorites: a proportion value of how many favorites a tweet received compared to the account average
 #'
 #'alphabetical order for any word ties.
 #'
@@ -57,8 +57,6 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 }
 
 
-sentiment_total <- function(tweets, drop_sentiment = FALSE) {
-
 #' Sentiment Word Counts
 #'
 #'Takes an input of of single english words and outputs the number of words associated
@@ -67,7 +65,6 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 #'(anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two
 #'sentiments (negative and positive). For more information on NRC:
 #'http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm
-
 #'Note that words can be 0:n with emotions (either associated with none, 1, or many).
 #'
 #' @param tweets 1-column dataframe
@@ -79,10 +76,9 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 #'
 #' @examples
 #' sentiment_total(df['tweets'], drop_sentiment = FALSE)
+sentiment_total <- function(tweets, drop_sentiment = FALSE) {
+
 }
-
-
-engagement_by_hour <- function(tweets_df) {
 
 #' Average engagement by hour
 #'
@@ -97,4 +93,22 @@ engagement_by_hour <- function(tweets_df) {
 #' engagement_by_hour(my_tweets)
 engagement_by_hour <- function(tweets_df) {
 
+  # Check input type of tweets_df
+  if(!is.data.frame(tweets_df)){
+    stop("Input needs to be of type data.frame")
+  }
+
+  # Wrangle data
+  grouped_df <- tweets_df %>%
+    dplyr::mutate(hour = hour(lubridate::ymd_hms(as.character(factor(created_at))))) %>%
+    dplyr::mutate(total_engagement = favorite_count + retweet_count) %>%
+    dplyr::group_by(hour) %>%
+    dplyr::summarise(average_engagement = mean(total_engagement))
+
+  # Plot chart
+  grouped_df %>% ggplot2::ggplot(aes(x=hour, y=average_engagement)) +
+    geom_line() +
+    labs(title = 'Average engagement (likes + retweets) by hour',
+         x = 'Time (hour of day)',
+         y = 'Average engagement')
 }
