@@ -21,3 +21,15 @@ test_that('Plot should map x to x-axis and y to y-axis.', {
   testthat::expect_true("average_engagement" == rlang::get_expr(plot$mapping$y))
 
 })
+
+# Test 1 for tweet_words function
+test_that('tweet_words should return an error for wrong input data or datatypes', {
+  # first input is an int when should be a tibble
+  testthat::expect_error(tweet_words(5, 3))
+  # second argument should be an int
+  testthat::expect_error(tweet_words(5, "not an int"))
+  # second argument should be a value greater than 0
+  testthat::expect_error(tweet_words(5, 0))
+})
+
+# Test 2 for tweet_words function

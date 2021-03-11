@@ -45,7 +45,7 @@ clean_df <- function(raw_tweets_df, handle = "", text_only = TRUE, word_count = 
 #'alphabetical order for any word ties.
 #'
 #' @param clean_dataframe dataframe
-#' @param top_n int
+#' @param top_n numeric
 #'
 #' @return dataframe
 #' @export
@@ -53,6 +53,18 @@ clean_df <- function(raw_tweets_df, handle = "", text_only = TRUE, word_count = 
 #' @examples
 #' tweet_words(dataframe, 3)
 tweet_words <- function(clean_dataframe, top_n=1) {
+  # check that clean_dataframe is a dataframe
+  if(!is.data.frame(clean_dataframe)){
+    stop("Input needs to be of type data.frame")
+  }
+   # check that top_n is an int
+  if(!is.numeric(top_n)){
+    stop("Input needs to be of type data.frame")
+  }
+  # check that top_n is greater than 0
+  if(!(top_n > 0)){
+    stop("Input needs to be of type data.frame")
+  }
 
 }
 
