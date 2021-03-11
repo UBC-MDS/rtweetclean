@@ -15,6 +15,7 @@ Imports:
     magrittr,
     dplyr,
     lubridate,
-    ggplot2
+    ggplot2,
+    tidyr
 Suggests: 
     testthat
