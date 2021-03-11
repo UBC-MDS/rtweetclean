@@ -40,7 +40,7 @@ clean_df <- function(raw_tweets_df, handle = "", text_only = TRUE, word_count = 
 
 #' Most common words
 #'
-#'Returns the most common words and counts from a list of tweets.
+#'Returns the top_n most common words and counts of occurrences from a list of tweets.
 #'The output is sorted descending by the count of words and in reverse
 #'alphabetical order for any word ties.
 #'
@@ -66,6 +66,19 @@ tweet_words <- function(clean_dataframe, top_n=1) {
     stop("Input needs to be of type data.frame")
   }
 
+  data <- tidyr::as_tibble(clean_dataframe)
+
+  output <- data %>%
+    tidytext::unnest_tokens(word, text_only) %>%
+    dplyr::count(word) %>%
+    dplyr::arrange(-n, desc(word)) %>%
+    dplyr::mutate(words = word,
+                  count = as.integer(n)) %>%
+    dplyr::select(words, count) %>%
+    dplyr::slice_head(n = top_n)
+
+  output <- data.frame(output)
+  output
 }
 
 

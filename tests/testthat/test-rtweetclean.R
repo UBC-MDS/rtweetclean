@@ -33,3 +33,17 @@ test_that('tweet_words should return an error for wrong input data or datatypes'
 })
 
 # Test 2 for tweet_words function
+test_that('tweet_words is not returning the correct dataframe', {
+  # create input data
+  input_data = data.frame(id = c(1,2,3,4,5),
+                          text_only = c("this is example tweet 1",
+                                        "this is example tweet 2 with a few extra words",
+                                        "is third",
+                                        "4th tweet",
+                                        "fifth tweet"))
+  # create expected output data
+  expected_output = data.frame(words = c("tweet", "is", "this"),
+                               count = as.integer(c(4, 3, 2)))
+
+  testthat::expect_true(dplyr::all_equal(tweet_words(input_data, 3), expected_output))
+})
