@@ -100,15 +100,15 @@ engagement_by_hour <- function(tweets_df) {
 
   # Wrangle data
   grouped_df <- tweets_df %>%
-    dplyr::mutate(hour = hour(lubridate::ymd_hms(as.character(factor(created_at))))) %>%
+    dplyr::mutate(hour = lubridate::hour(lubridate::ymd_hms(as.character(factor(created_at))))) %>%
     dplyr::mutate(total_engagement = favorite_count + retweet_count) %>%
     dplyr::group_by(hour) %>%
     dplyr::summarise(average_engagement = mean(total_engagement))
 
   # Plot chart
-  grouped_df %>% ggplot2::ggplot(aes(x=hour, y=average_engagement)) +
-    geom_line() +
-    labs(title = 'Average engagement (likes + retweets) by hour',
+  grouped_df %>% ggplot2::ggplot(ggplot2::aes(x=hour, y=average_engagement)) +
+    ggplot2::geom_line() +
+    ggplot2::labs(title = 'Average engagement (likes + retweets) by hour',
          x = 'Time (hour of day)',
          y = 'Average engagement')
 }
