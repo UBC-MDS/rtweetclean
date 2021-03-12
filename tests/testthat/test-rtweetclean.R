@@ -1,12 +1,11 @@
-# Helper data for testing clean_df function
-test_raw_df <- read_twitter_csv("rtweet_raw_df.csv", unflatten = FALSE)
+# Helper df to test raw_df function
+test_raw_df <- read_twitter_csv("../rtweet_raw_df.csv", unflatten = FALSE)
 
 # Test 1 for clean_df function
 test_that('clean_df should take a dataframe as input', {
 
   testthat::expect_error(clean_df("not a dataframe"))
   testthat::expect_error(clean_df(123))
-  testthat::expect_error(clean_df(c("not", "a", "dataframe")))
 
 })
 
@@ -37,7 +36,7 @@ test_that('clean_df should return a dataframe', {
 
 })
 
-# Test 4 for clean_df function
+# # Test 4 for clean_df function
 test_that('clean_df should contain generated columns', {
 
   test_clean_df <- clean_df(test_raw_df)
@@ -50,7 +49,7 @@ test_that('clean_df should contain generated columns', {
 
 })
 
-# Test 5 for clean_df function
+# # Test 5 for clean_df function
 test_that('clean_df column types should be the right type', {
 
   test_clean_df <- clean_df(test_raw_df)
@@ -64,7 +63,7 @@ test_that('clean_df column types should be the right type', {
 
 })
 
-# Test 6 for clean_df function
+# # Test 6 for clean_df function
 test_that('clean_df column types should be the right type', {
 
   df_wrong_text_type <- data.frame(text = c(1, 2, 3),
