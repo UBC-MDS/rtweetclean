@@ -196,6 +196,16 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 #' sentiment_total(tweets, drop_sentiment = FALSE)
 sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 
+  # Check tweets is a list
+  if(typeof(tweets) != 'list'){
+    stop("tweets input must be  a list")
+  }
+
+  # Check drop_sentiment is bool
+  if(drop_sentiment != TRUE & drop_sentiment != FALSE){
+    stop("drop_sentiment must be a bool")
+  }
+
   # messy wrangling necessary for separate_rows() to work
   tweet_words <- tweets %>% mutate(id = row_number())
   tweet_words <- separate_rows(tweets, word)
@@ -259,14 +269,3 @@ engagement_by_hour <- function(tweets_df) {
          x = 'Time (hour of day)',
          y = 'Average engagement')
 }
-
-
-#tweets2 <- data.frame(word = c("this is example tweet 1",
-#                              "this is example tweet 2 with a few extra words",
-#                              "is third",
-#                              "4th tweet",
-#                              "fifth tweet"))
-#
-#
-#zzz <- sentiment_total(tweets2)
-#

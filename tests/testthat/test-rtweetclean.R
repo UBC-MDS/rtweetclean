@@ -160,7 +160,7 @@ sentiment_output2 <- rtweetclean::sentiment_total(tweets, drop_sentiment = TRUE)
 
 test_that('sentiment_total requires a list type for tweets input', {
 
-  testthat::expect_equal(typeof(tweets$word), "character")
+  testthat::expect_equal(typeof(tweets), "list")
 })
 
 test_that('sentiment_total output object is not a data.frame', {
@@ -183,6 +183,8 @@ test_that('sentiment_total total_words column is not integer data type', {
 test_that('sentiment_total is not dropping sentiments with word_counts==0)', {
  testthat::expect_equal(min(sentiment_output2$word_count), 1)
 })
+
+
 
 
 
