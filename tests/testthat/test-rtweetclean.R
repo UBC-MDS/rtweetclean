@@ -1,4 +1,4 @@
-# Helper df to test raw_df function
+# Helper data to test clean_df function
 test_raw_df <- read_twitter_csv("../rtweet_raw_df.csv", unflatten = FALSE)
 
 # Test 1 for clean_df function
