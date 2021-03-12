@@ -186,16 +186,45 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 #'Note that words can be 0:n with emotions (either associated with none, 1, or many).
 #'
 #' @param tweets 1-column dataframe
-#' @param drop_sentiment. A true/false bool that drops sentiment rows if no words are
+#' @param drop_sentiment A true/false bool that drops sentiment rows if no words are
 #'  associated with that sentiment
 #'
 #' @return dataframe
 #' @export
 #'
 #' @examples
-#' sentiment_total(df['tweets'], drop_sentiment = FALSE)
+#' sentiment_total(tweets, drop_sentiment = FALSE)
 sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 
+  # messy wrangling necessary for separate_rows() to work
+  tweet_words <- tweets %>% mutate(id = row_number())
+  tweet_words <- separate_rows(tweets, word)
+  tweet_words <- tweet_words %>% select(word)
+  total_words = nrow(tweet_words)
+
+  # lexicon
+  emotion_lexicon_df <- read.csv("NRC-Emotion-Lexicon-Wordlevel-v0.92.txt",
+                                 header = TRUE, sep = "\t") # NRC dataset
+
+  # inner join on 2 dataframes
+  tweet_words_sentiment <- merge(tweet_words, emotion_lexicon_df, all = FALSE)
+
+  #if user deviates from default parameter drop 0 count sentiments
+  if (drop_sentiment == TRUE) {
+    tweet_words_sentiment <- tweet_words_sentiment %>%
+      dplyr::filter(count == 1)
+  }
+  # get aggregated sentiment-words counts
+  tweet_words_sentiment <- tweet_words_sentiment %>%
+    dplyr::group_by(sentiment) %>%
+    dplyr::summarise(word_count = sum(count))
+
+  # add total words from input list of tweets
+  tweet_words_sentiment <- tweet_words_sentiment %>%
+    dplyr::mutate(total_words = total_words)
+
+
+  return(tweet_words_sentiment)
 }
 
 #' Average engagement by hour
@@ -230,3 +259,14 @@ engagement_by_hour <- function(tweets_df) {
          x = 'Time (hour of day)',
          y = 'Average engagement')
 }
+
+
+#tweets2 <- data.frame(word = c("this is example tweet 1",
+#                              "this is example tweet 2 with a few extra words",
+#                              "is third",
+#                              "4th tweet",
+#                              "fifth tweet"))
+#
+#
+#zzz <- sentiment_total(tweets2)
+#
