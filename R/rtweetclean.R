@@ -3,26 +3,16 @@
 #'
 #'Returns a new dataframe containing additional columns that were not in the original
 #'Generatable columns include...
-#'  handle: contains specified twitter handle, (default is none and adds no column)
 #'  text_only: strips emojis, hashtags, and hyperlinks from the text column
 #'  word_count: counts the number of words contained in the text_only column
 #'  emojis: contains the extracted emojis from text
-#'  hashtags: contains the extracted hashtags from text
-#'  sentiment: contains the a sentiment polarity score
-#'  flesch_readability: contains the a flesch readability score
 #'  proportion_of_avg_retweets: a proportion value of how many retweets a tweet received compared to the account average
 #'  proportion_of_avg_favorites: a proportion value of how many favorites a tweet received compared to the account average
 #'
-#'alphabetical order for any word ties.
-#'
 #' @param raw_tweets_df dataframe
-#' @param handle str
 #' @param text_only bool
 #' @param word_count bool
 #' @param emojis bool
-#' @param hashtags bool
-#' @param sentiment bool
-#' @param flesch_readability bool
 #' @param proportion_of_avg_retweets bool
 #' @param proportion_of_avg_favorites bool
 #'
@@ -33,10 +23,113 @@
 #' function(raw_tweets_df)
 #' function(raw_tweets_df, handle = "Canucks")
 #' function(raw_tweets_df, handle = "Canucks", word_count = FALSE)
-clean_df <- function(raw_tweets_df, handle = "", text_only = TRUE, word_count = TRUE, emojis = TRUE, hashtags = TRUE, sentiment = TRUE, flesch_readability = TRUE, proportion_of_avg_retweets = TRUE, proportion_of_avg_favorites = TRUE) {
+clean_df <- function(raw_tweets_df,
+                     text_only = TRUE,
+                     word_count = TRUE,
+                     emojis = TRUE,
+                     proportion_of_avg_retweets = TRUE,
+                     proportion_of_avg_favorites = TRUE)
+{
+
+  data_types <- sapply(raw_tweets_df, class)
+
+  # test that input is df
+  if(!is.data.frame(raw_tweets_df)){
+    stop("Input needs to be of type data.frame")
+  }
+
+  # test that retweet_count exists
+  if (!("retweet_count" %in% colnames(raw_tweets_df))) {
+    stop("
+         No retweet_count column present in dataframe needed to
+         generate proportion_of_avg_retweets")
+  }
+
+  # test that input is df
+  if(!data_types["retweet_count"] == "integer"){
+    stop("'retweet_count' col of input wrong datatype should be integer")
+  }
+
+  # test that favorite_count exists
+  if (!("favorite_count" %in% colnames(raw_tweets_df))) {
+    stop("
+         No favorite_count column present in dataframe needed to
+         generate proportion_of_avg_favorites")
+  }
+
+  # test that input is df
+  if(!data_types["favorite_count"] == "integer"){
+    stop("'favorite_count' col of input wrong datatype should be integer")
+  }
+
+  # test that text exists
+  if (!("text" %in% colnames(raw_tweets_df))) {
+    stop("
+         No text column present in dataframe needed to
+         generate text_only and/or word_count")
+  }
+
+  # test that input is df
+  if(!data_types["text"] == "character"){
+    stop("'text' col of input wrong datatype should be character")
+  }
+
+  tweets_df <- data.frame(raw_tweets_df)
+
+  if (proportion_of_avg_retweets) {
+    avg_retweets <- mean(tweets_df$retweet_count)
+  }
+
+  if (proportion_of_avg_favorites) {
+    avg_favorites <- mean(tweets_df$favorite_count)
+  }
+
+  for (i in 1:nrow(tweets_df)) {
+
+    tweet_text <- tweets_df$text[i]
+
+    # Remove emojis
+    text_only_str <- gsub("\\p{So}|\\p{Cn}", " ", tweet_text, perl = TRUE)
+    # Remove "@'s"
+    text_only_str <- gsub("@\\w+ *", " ", text_only_str)
+    # Remove "#'s"
+    text_only_str <- gsub("#\\w+ *", " ", text_only_str)
+    # Replace https ampersands
+    text_only_str <- gsub("&amp;", "&", text_only_str)
+    # Remove https links
+    text_only_str <- gsub(" ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)", " ", text_only_str)
+    # Remove new lines
+    text_only_str <- gsub("[\r\n]", " ", text_only_str)
+    # Remove double spaces
+    text_only_str <- gsub(" +", " ", text_only_str)
+    # Remove  whitespace
+    text_only_str <- trimws(text_only_str)
+
+    if (text_only) {
+      tweets_df$text_only[i] <- text_only_str
+    }
+
+    if (word_count){
+      tweets_df$word_count[i] <- sapply(strsplit(text_only_str, "\\s+"), length)
+    }
+
+    if (emojis) {
+      tweets_df$emojis[i] <- as.list(str_extract_all(tweets_df$text[i], "\\p{So}|\\p{Cn}"))
+    }
+
+    if (proportion_of_avg_retweets) {
+      tweets_df$prptn_rts_vs_avg[i] <- tweets_df$retweet_count[i] / avg_retweets
+    }
+
+    if (proportion_of_avg_favorites) {
+      tweets_df$prptn_favorites_vs_avg[i] <- tweets_df$favorite_count[i] / avg_favorites
+    }
+
+  }
+
+  return(tweets_df)
 
 }
-
 
 #' Most common words
 #'
