@@ -1,3 +1,6 @@
+library(tidyr)
+library(tidyverse)
+
 #' Adds new column(s) to dataframe returned by rtweet get_timeline() function with
 #' default parameters based on user specified input
 #'
@@ -269,3 +272,15 @@ engagement_by_hour <- function(tweets_df) {
          x = 'Time (hour of day)',
          y = 'Average engagement')
 }
+
+
+
+tweets = data.frame(word = c("this is example tweet 1",
+                                                "this is example tweet 2 with a few extra words",
+                                                "is third",
+                                                "4th tweet",
+                                                "fifth tweet"))
+
+z <- sentiment_total(tweets2)
+
+
