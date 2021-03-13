@@ -281,6 +281,4 @@ tweets = data.frame(word = c("this is example tweet 1",
                                                 "4th tweet",
                                                 "fifth tweet"))
 
-z <- sentiment_total(tweets2)
-
 
