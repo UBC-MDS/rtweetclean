@@ -1,14 +1,13 @@
-# Helper data to test clean_df function
-test_raw_df <- read_twitter_csv("../rtweet_raw_df.csv", unflatten = FALSE)
 
+
+# Helper data to test clean_df function
+
+test_raw_df <- rtweet::read_twitter_csv("../rtweet_raw_df.csv", unflatten = FALSE)
 # Test 1 for clean_df function
 test_that('clean_df should take a dataframe as input', {
-
-  testthat::expect_error(clean_df("not a dataframe"))
-  testthat::expect_error(clean_df(123))
-
+ testthat::expect_error(clean_df("not a dataframe"))
+ testthat::expect_error(clean_df(123))
 })
-
 # Test 2 for clean_df function
 test_that('clean_df should raise error if column is missing', {
 
@@ -146,3 +145,46 @@ test_that('tweet_words is not returning the correct dataframe', {
   testthat::expect_true(dplyr::all_equal(tweet_words(input_data, 1000), expected_output_1000))
 
 })
+
+
+# tests for sentiment_total function
+
+tweets <- data.frame(word = c("this is example tweet 1",
+                                  "this is example tweet 2 with a few extra words",
+                                  "is third",
+                                  "4th tweet",
+                                  "fifth tweet"))
+
+sentiment_output <- rtweetclean::sentiment_total(tweets)
+sentiment_output2 <- rtweetclean::sentiment_total(tweets, drop_sentiment = TRUE)
+
+test_that('sentiment_total requires a list type for tweets input', {
+
+  testthat::expect_equal(typeof(tweets), "list")
+})
+
+test_that('sentiment_total output object is not a data.frame', {
+
+   testthat::expect_type(sentiment_output, "list")
+})
+
+test_that('sentiment_total sentiment column is not a chr data type', {
+   testthat::expect_equal(class(sentiment_output$sentiment), "character")
+})
+
+test_that('sentiment_total word_count column is not integer data type', {
+  testthat::expect_equal(typeof(sentiment_output$word_count), "integer")
+})
+
+test_that('sentiment_total total_words column is not integer data type', {
+ testthat::expect_equal(typeof(sentiment_output$total_words), "integer")
+})
+
+test_that('sentiment_total is not dropping sentiments with word_counts==0)', {
+ testthat::expect_equal(min(sentiment_output2$word_count), 1)
+})
+
+
+
+
+
