@@ -20,4 +20,7 @@ Imports:
     tidytext,
     rtweet
 Suggests: 
-    testthat
+    testthat,
+    covr
+URL: https://github.com/UBC-MDS/rtweetclean
+BugReports: https://github.com/UBC-MDS/rtweetclean/issues
