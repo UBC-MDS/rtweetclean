@@ -24,3 +24,4 @@ Suggests:
     covr
 URL: https://github.com/UBC-MDS/rtweetclean
 BugReports: https://github.com/UBC-MDS/rtweetclean/issues
+License: MIT + file LICENSE
