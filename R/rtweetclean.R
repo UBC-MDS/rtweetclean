@@ -1,6 +1,3 @@
-library(tidyr)
-library(tidyverse)
-
 #' Adds new column(s) to dataframe returned by rtweet get_timeline() function with
 #' default parameters based on user specified input
 #'
@@ -117,7 +114,7 @@ clean_df <- function(raw_tweets_df,
     }
 
     if (emojis) {
-      tweets_df$emojis[i] <- as.list(str_extract_all(tweets_df$text[i], "\\p{So}|\\p{Cn}"))
+      tweets_df$emojis[i] <- as.list(stringr::str_extract_all(tweets_df$text[i], "\\p{So}|\\p{Cn}"))
     }
 
     if (proportion_of_avg_retweets) {
@@ -210,9 +207,9 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
   }
 
   # messy wrangling necessary for separate_rows() to work
-  tweet_words <- tweets %>% mutate(id = row_number())
-  tweet_words <- separate_rows(tweets, word)
-  tweet_words <- tweet_words %>% select(word)
+  tweet_words <- tweets %>% dplyr::mutate(id = dplyr::row_number())
+  tweet_words <- tidyr::separate_rows(tweets, word)
+  tweet_words <- tweet_words %>% dplyr::select(word)
   total_words = nrow(tweet_words)
 
   # lexicon
