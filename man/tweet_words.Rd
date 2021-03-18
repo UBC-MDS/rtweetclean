@@ -13,9 +13,21 @@ tweet_words(clean_dataframe, top_n = 1)
 }
 \value{
 dataframe
+
+data.frame
 }
 \description{
 Returns the top_n most common words and counts of occurrences from a list of tweets.
 The output is sorted descending by the count of words and in reverse
 alphabetical order for any word ties.
+}
+\examples{
+#' @param clean_dataframe data.frame
+input_data <- (data.frame(id = c(1,2,3,4,5),
+text_only = c("this is example tweet 1",
+             "this is example tweet 2 with a few extra words",
+             "is third",
+             "4th tweet",
+             "fifth tweet")))
+tweet_words(input_data, 3)
 }

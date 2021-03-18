@@ -212,7 +212,7 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 #' @export
 #'
 #' @examples
-#'tweets <- data.frame(word = c("this is example tweet 1",
+#'tweets <- data.frame(text_only = c("this is example tweet 1",
 #'                              "this is example tweet 2 with a few extra words",
 #'                              "is third",
 #'                              "4th tweet",

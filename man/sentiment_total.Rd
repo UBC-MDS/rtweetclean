@@ -25,7 +25,7 @@ http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm
 Note that words can be 0:n with emotions (either associated with none, 1, or many).
 }
 \examples{
-tweets <- data.frame(word = c("this is example tweet 1",
+tweets <- data.frame(text_only = c("this is example tweet 1",
                              "this is example tweet 2 with a few extra words",
                              "is third",
                              "4th tweet",
