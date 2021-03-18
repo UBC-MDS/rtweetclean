@@ -21,3 +21,4 @@ Imports:
     rtweet
 Suggests: 
     testthat
+License: MIT + file LICENSE
