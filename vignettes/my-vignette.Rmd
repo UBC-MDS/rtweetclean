@@ -1,0 +1,122 @@
+---
+title: "my-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rtweetclean)
+library(knitr)
+```
+
+# Getting a tweepy dataframe
+
+-   This package is intended to be used to build upon the already existing rtweet package. In order to work with any of its functions a timeline dataframe returned by rtweet must be used. This **requires the use of a twitter developer account/app to access the twitter api** (we will be loading an example dataframe in case you do not have access to one). If you do not have an app and are interested in creating one [please follow the instructions here](https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html). Here are the instructions for how to retrieve this dataframe.
+
+```{r load_dataframe_rtweet}
+# If you have a twitter developer account/app you can copy/paste your access information and unmute the code below to scrape a twitter timeline of your choosing!
+
+# appname <- "#################"
+# key <- "########################"
+# secret <- "##########################"
+# access_token <- "########-######################"
+# access_secret <- "##############################"
+# 
+# twitter_token <- create_token(
+#   app = appname,
+#   consumer_key = key,
+#   consumer_secret = secret,
+#   access_token = access_token,
+#   access_secret = access_secret)
+# 
+# timeline_rtweet <- get_timeline("TWITTER_USERNAME", n = 20)
+# 
+# head(timeline_rtweet)
+```
+
+Since everyone may not have twitter developer access we have provided an example dataframe that we have previously scraped (NOTE, please set your working director to rtweetclean/vignettes to load this dataframe)...
+
+```{r load_example_df}
+# From working director rtweetclean/vignettes
+#timeline_rtweet <- rtweet::read_twitter_csv("../data/rtweet_raw_df.csv", unflatten = FALSE)
+#head(timeline_rtweet)
+
+text <- c("example tweet text 1 @user2 @user", "#example #tweet 2 ", "example tweet 3 https://t.co/G4ziCaPond", "example tweet 4")
+retweet_count <- c(43, 12, 24, 29)
+favorite_count <- c(85, 41, 65, 54)
+timeline_rtweet <- data.frame(text, retweet_count, favorite_count)
+head(timeline_rtweet)
+```
+
+# clean\_df()
+
+The first of our functions, `clean_df()` is used to modify the timeline dataframe provided by rtweet by adding new columns by extraction information from tweets that tweepy does not provide on its own. The user is able to choose which columns are generated. Options for generateable columns include...
+
+-   text\_only: strips emojis, hashtags, and hyperlinks from the text column
+
+-   word\_count: counts the number of words contained in the text\_only column
+
+-   emojis: contains the extracted emojis from tweet text
+
+-   proportion\_of\_avg\_retweets: a proportion value of how many retweets a tweet received compared to the average in the dataframe
+
+-   proportion\_of\_avg\_favorites: a proportion value of how many favorites a tweet received compared to the average in the dataframe
+
+Different columns can be specified to be added by specifying their arguments as "TRUE" or "FALSE" when calling the clean\_df function. They are all set to TRUE by default.
+
+clean\_df \<- function(raw\_tweets\_df,
+
+text\_only = TRUE,
+
+word\_count = TRUE,
+
+emojis = TRUE,
+
+proportion\_of\_avg\_retweets = TRUE,
+
+proportion\_of\_avg\_favorites = TRUE)
+
+```{r clean_df_demo}
+cleaned_timeline <- rtweetclean::clean_df(timeline_rtweet)
+tail(colnames(cleaned_timeline), 5)
+```
+
+We can see that new columns have been added to the dataframe. The contents of these columns can be seen below alongside the original text column provided by rtweet for comparison...
+
+```{r clean_df_column_contents}
+head( subset(cleaned_timeline, select=c(text,text_only,word_count,emojis, prptn_rts_vs_avg, prptn_favorites_vs_avg)),3)
+```
+
+# tweet\_words
+
+```{r tweet_words_example}
+#tweet_words_example <- rtweetclean::tweet_words(cleaned_timeline, top_n=5)
+#tweet_words_example
+print("filler")
+```
+
+# sentiment\_total
+
+```{r sentiment_total_example}
+# sentiment_total_example <- rtweetclean::sentiment_total(cleaned_timeline, drop_sentiment = FALSE)
+# sentiment_total_example
+print("filler")
+```
+
+# engagement\_by\_hour
+
+```{r engagement_by_hour_example}
+#engagement_by_hour_example <- rtweetclean::engagement_by_hour(cleaned_timeline)
+#engagement_by_hour_example
+print("filler")
+```

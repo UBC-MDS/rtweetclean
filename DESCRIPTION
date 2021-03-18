@@ -18,6 +18,11 @@ Imports:
     ggplot2,
     tidyr,
     tidytext,
-    rtweet
+    rtweet,
+    stringr
 Suggests: 
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+License: MIT + file LICENSE
