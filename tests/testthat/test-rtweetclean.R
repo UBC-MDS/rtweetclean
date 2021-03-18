@@ -1,8 +1,15 @@
-
-
 # Helper data to test clean_df function
 
-test_raw_df <- rtweet::read_twitter_csv("../rtweet_raw_df.csv", unflatten = FALSE)
+text <- c("example tweet text 1 @user2 @user",
+          "#example #tweet 2 ",
+          "example tweet 3 https://t.co/G4ziCaPond",
+          "example tweet 4")
+retweet_count <- c(43, 12, 24, 29)
+favorite_count <- c(85, 41, 65, 54)
+test_raw_df <- data.frame(text, retweet_count, favorite_count)
+
+#test_raw_df <- rtweet::read_twitter_csv("../rtweet_raw_df.csv", unflatten = FALSE)
+
 # Test 1 for clean_df function
 test_that('clean_df should take a dataframe as input', {
  testthat::expect_error(clean_df("not a dataframe"))
@@ -71,8 +78,8 @@ test_that('clean_df column types should be the right type', {
   )
 
   df_wrong_retweet_type <- data.frame(text = c("tweet", "tweeet", "tweeeeeeeeeet"),
-                                   retweet_count = c(23, 41, 32),
-                                   favorite_count = c("a", "b", "c")
+                                   retweet_count = c("a", "b", "c"),
+                                   favorite_count = c(23, 41, 32)
   )
 
   df_wrong_favorite_type <- data.frame(text = c("tweet", "tweeet", "tweeeeeeeeeet"),
