@@ -185,6 +185,4 @@ test_that('sentiment_total is not dropping sentiments with word_counts==0)', {
 })
 
 
-sentiment_total(tweets)
-
 
