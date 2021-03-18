@@ -298,7 +298,4 @@ engagement_by_hour <- function(tweets_df) {
          x = 'Time (hour of day)',
          y = 'Average engagement')
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> main
