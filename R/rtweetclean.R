@@ -20,9 +20,6 @@
 #' @export
 #'
 #' @examples
-#' function(raw_tweets_df)
-#' function(raw_tweets_df, handle = "Canucks")
-#' function(raw_tweets_df, handle = "Canucks", word_count = FALSE)
 clean_df <- function(raw_tweets_df,
                      text_only = TRUE,
                      word_count = TRUE,
@@ -144,7 +141,6 @@ clean_df <- function(raw_tweets_df,
 #' @export
 #'
 #' @examples
-#' tweet_words(dataframe, 3)
 tweet_words <- function(clean_dataframe, top_n=1) {
   # check that clean_dataframe is a dataframe
   if(!is.data.frame(clean_dataframe)){
@@ -193,10 +189,9 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 #' @export
 #'
 #' @examples
-#' sentiment_total(tweets, drop_sentiment = FALSE)
 sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 
-  # Check tweets is a list
+  #Check tweets is a list
   if(typeof(tweets) != 'list'){
     stop("tweets input must be  a list")
   }
@@ -247,7 +242,6 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 #' @export
 #'
 #' @examples
-#' engagement_by_hour(my_tweets)
 engagement_by_hour <- function(tweets_df) {
 
   # Check input type of tweets_df
