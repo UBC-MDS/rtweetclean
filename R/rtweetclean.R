@@ -20,9 +20,15 @@
 #' @export
 #'
 #' @examples
-#' function(raw_tweets_df)
-#' function(raw_tweets_df, handle = "Canucks")
-#' function(raw_tweets_df, handle = "Canucks", word_count = FALSE)
+#' text <- c("example tweet text 1 @user2 @user",
+#' "#example #tweet 2 ",
+#' "example tweet 3 https://t.co/G4ziCaPond",
+#' "example tweet 4")
+#' retweet_count <- c(43, 12, 24, 29)
+#' favorite_count <- c(85, 41, 65, 54)
+#' raw_df <- data.frame(text, retweet_count, favorite_count)
+#' clean_df(raw_df)
+#' clean_df(raw_df, emojis = FALSE)
 clean_df <- function(raw_tweets_df,
                      text_only = TRUE,
                      word_count = TRUE,
@@ -45,9 +51,9 @@ clean_df <- function(raw_tweets_df,
          generate proportion_of_avg_retweets")
   }
 
-  # test that input is df
-  if(!data_types["retweet_count"] == "integer"){
-    stop("'retweet_count' col of input wrong datatype should be integer")
+  # test that retweet_count is the right type
+  if(data_types["retweet_count"] != "integer" && data_types["retweet_count"] != "numeric"){
+    stop("'retweet_count' col of input wrong datatype should be integer or numeric")
   }
 
   # test that favorite_count exists
@@ -57,9 +63,9 @@ clean_df <- function(raw_tweets_df,
          generate proportion_of_avg_favorites")
   }
 
-  # test that input is df
-  if(!data_types["favorite_count"] == "integer"){
-    stop("'favorite_count' col of input wrong datatype should be integer")
+  # test that favorite_count is the right type
+  if(!data_types["favorite_count"] == "integer" && !data_types["favorite_count"] == "numeric"){
+    stop("'favorite_count' col of input wrong datatype should be integer or numeric")
   }
 
   # test that text exists
@@ -144,7 +150,20 @@ clean_df <- function(raw_tweets_df,
 #' @export
 #'
 #' @examples
-#' tweet_words(dataframe, 3)
+#' #' @param clean_dataframe data.frame
+#' @param top_n numeric
+#'
+#' @return data.frame
+#' @export
+#'
+#' @examples
+#' input_data <- (data.frame(id = c(1,2,3,4,5),
+#' text_only = c("this is example tweet 1",
+#'              "this is example tweet 2 with a few extra words",
+#'              "is third",
+#'              "4th tweet",
+#'              "fifth tweet")))
+#' tweet_words(input_data, 3)
 tweet_words <- function(clean_dataframe, top_n=1) {
   # check that clean_dataframe is a dataframe
   if(!is.data.frame(clean_dataframe)){
@@ -193,7 +212,12 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 #' @export
 #'
 #' @examples
-#' sentiment_total(tweets, drop_sentiment = FALSE)
+#'tweets <- data.frame(word = c("this is example tweet 1",
+#'                              "this is example tweet 2 with a few extra words",
+#'                              "is third",
+#'                              "4th tweet",
+#'                              "fifth tweet"))
+#'sentiment_total(tweets, drop_sentiment = FALSE)
 sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 
   # Check tweets is a list
@@ -247,6 +271,11 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 #' @export
 #'
 #' @examples
+#'my_tweets <- data.frame (created_at  = c("2021-03-06 16:03:31",
+#'"2021-03-05 21:57:47",
+#''2021-03-05 05:50:50'),
+#favorite_count = c(20, 10, 2),
+#retweet_count = c(20, 10, 2))
 #' engagement_by_hour(my_tweets)
 engagement_by_hour <- function(tweets_df) {
 
@@ -269,4 +298,7 @@ engagement_by_hour <- function(tweets_df) {
          x = 'Time (hour of day)',
          y = 'Average engagement')
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
