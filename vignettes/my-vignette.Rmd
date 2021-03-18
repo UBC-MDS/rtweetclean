@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
+library(rtweetclean)
 library(knitr)
 library(rtweet)
 ```
@@ -86,14 +87,14 @@ proportion\_of\_avg\_retweets = TRUE,
 proportion\_of\_avg\_favorites = TRUE)
 
 ```{r clean_df_demo}
-# cleaned_timeline <- rtweetclean::clean_df(timeline_rtweet)
+#cleaned_timeline <- rtweetclean::clean_df(timeline_rtweet_toy)
 #tail(colnames(cleaned_timeline), 5)
 ```
 
 We can see that new columns have been added to the dataframe. The contents of these columns can be seen below alongside the original text column provided by rtweet for comparison...
 
 ```{r clean_df_column_contents}
-#head( subset(cleaned_timeline, select=c(text,text_only,word_count,emojis, prptn_rts_vs_avg, prptn_favorites_vs_avg)),4)
+#head( subset(cleaned_timeline, select=c(text,text_only,word_count,emojis, prptn_rts_vs_avg, prptn_favorites_vs_avg)),5)
 ```
 
 # tweet\_words
