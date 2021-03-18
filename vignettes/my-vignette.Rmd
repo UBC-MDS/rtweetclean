@@ -17,45 +17,45 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(rtweetclean)
 library(knitr)
+library(rtweet)
 ```
 
 # Getting a tweepy dataframe
 
--   This package is intended to be used to build upon the already existing rtweet package. In order to work with any of its functions a timeline dataframe returned by rtweet must be used. This **requires the use of a twitter developer account/app to access the twitter api** (we will be loading an example dataframe in case you do not have access to one). If you do not have an app and are interested in creating one [please follow the instructions here](https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html). Here are the instructions for how to retrieve this dataframe.
+-   This package is intended to be used to build upon the already existing rtweet package. In order to work with any of its functions a timeline dataframe returned by rtweet must be used. This **requires the use of a twitter developer account/app to access the twitter api** (we will be loading an example dataframe in case you do not have access to one). Note that my keys are stored locally on my machine and called using Sys.getenv(""), if you want to paste you keys you can do so by setting each of the objects to a string containing the required credentials (i.e. key \<- "\#\#\#\#\#"). If you do not have an app and are interested in creating one [please follow the instructions here](https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html). Here are the instructions for how to retrieve this dataframe.
 
 ```{r load_dataframe_rtweet}
-# If you have a twitter developer account/app you can copy/paste your access information and unmute the code below to scrape a twitter timeline of your choosing!
+# If you have a twitter developer account/app you can copy/paste your access information in place of my Sys.getenv("") functions
 
-# appname <- "#################"
-# key <- "########################"
-# secret <- "##########################"
-# access_token <- "########-######################"
-# access_secret <- "##############################"
-# 
-# twitter_token <- create_token(
-#   app = appname,
-#   consumer_key = key,
-#   consumer_secret = secret,
-#   access_token = access_token,
-#   access_secret = access_secret)
-# 
-# timeline_rtweet <- get_timeline("TWITTER_USERNAME", n = 20)
-# 
-# head(timeline_rtweet)
+appname <- Sys.getenv("appname")
+key <- Sys.getenv("key")
+secret <- Sys.getenv("secret")
+access_token <- Sys.getenv("access_token")
+access_secret <- Sys.getenv("access_secret")
+
+
+twitter_token <- create_token(
+  app = appname,
+  consumer_key = key,
+  consumer_secret = secret,
+  access_token = access_token,
+  access_secret = access_secret)
+
+timeline_rtweet <- get_timeline("taylorswift13", n = 10)
+
+head(timeline_rtweet)
 ```
 
 Since everyone may not have twitter developer access we have provided an example dataframe that we have previously scraped (NOTE, please set your working director to rtweetclean/vignettes to load this dataframe)...
 
 ```{r load_example_df}
 # From working director rtweetclean/vignettes
-#timeline_rtweet <- rtweet::read_twitter_csv("../data/rtweet_raw_df.csv", unflatten = FALSE)
-#head(timeline_rtweet)
 
 text <- c("example tweet text 1 @user2 @user", "#example #tweet 2 ", "example tweet 3 https://t.co/G4ziCaPond", "example tweet 4")
 retweet_count <- c(43, 12, 24, 29)
 favorite_count <- c(85, 41, 65, 54)
-timeline_rtweet <- data.frame(text, retweet_count, favorite_count)
-head(timeline_rtweet)
+timeline_rtweet_toy <- data.frame(text, retweet_count, favorite_count)
+head(timeline_rtweet_toy)
 ```
 
 # clean\_df()
@@ -94,7 +94,7 @@ tail(colnames(cleaned_timeline), 5)
 We can see that new columns have been added to the dataframe. The contents of these columns can be seen below alongside the original text column provided by rtweet for comparison...
 
 ```{r clean_df_column_contents}
-head( subset(cleaned_timeline, select=c(text,text_only,word_count,emojis, prptn_rts_vs_avg, prptn_favorites_vs_avg)),3)
+head( subset(cleaned_timeline, select=c(text,text_only,word_count,emojis, prptn_rts_vs_avg, prptn_favorites_vs_avg)),4)
 ```
 
 # tweet\_words
