@@ -270,13 +270,3 @@ engagement_by_hour <- function(tweets_df) {
          y = 'Average engagement')
 }
 
-
-tweets = data.frame(id = c(1,2,3,4,5),
-                        text_only = c("this is example tweet 1",
-                                      "this is example tweet 2 with a few extra words",
-                                      "is third",
-                                      "4th tweet",
-                                      "fifth tweet"))
-
-t1 <- sentiment_total(tweets)
-t2 <- sentiment_total(tweets, drop_sentiment = TRUE)
