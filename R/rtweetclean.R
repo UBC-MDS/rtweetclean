@@ -197,9 +197,9 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 
   # Check tweets is a list
-  #if(typeof(tweets) != 'list'){
-  #  stop("tweets input must be  a list")
-  #}
+  if(typeof(tweets) != 'list'){
+    stop("tweets input must be  a list")
+  }
 
   # Check drop_sentiment is bool
   if(drop_sentiment != TRUE & drop_sentiment != FALSE){
