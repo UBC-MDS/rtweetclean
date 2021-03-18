@@ -19,10 +19,10 @@ Imports:
     tidyr,
     tidytext,
     rtweet,
-    stringr
+    stringr,
+    knitr
 Suggests: 
     testthat,
-    knitr,
     rmarkdown
 VignetteBuilder: knitr
 License: MIT + file LICENSE

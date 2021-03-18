@@ -51,11 +51,11 @@ Since everyone may not have twitter developer access we have provided an example
 ```{r load_example_df}
 # From working director rtweetclean/vignettes
 
-# text <- c("example tweet text 1 @user2 @user", "#example #tweet 2 ", "example tweet 3 https://t.co/G4ziCaPond", "example tweet 4")
-# retweet_count <- c(43, 12, 24, 29)
-# favorite_count <- c(85, 41, 65, 54)
-# timeline_rtweet_toy <- data.frame(text, retweet_count, favorite_count)
-# head(timeline_rtweet_toy)
+text <- c("example tweet text 1 @user2 @user", "#example #tweet 2 ", "example tweet 3 https://t.co/G4ziCaPond", "example tweet 4")
+retweet_count <- c(43, 12, 24, 29)
+favorite_count <- c(85, 41, 65, 54)
+timeline_rtweet_toy <- data.frame(text, retweet_count, favorite_count)
+head(timeline_rtweet_toy)
 ```
 
 # clean\_df()
@@ -87,14 +87,14 @@ proportion\_of\_avg\_retweets = TRUE,
 proportion\_of\_avg\_favorites = TRUE)
 
 ```{r clean_df_demo}
-# cleaned_timeline <- rtweetclean::clean_df(timeline_rtweet)
-# tail(colnames(cleaned_timeline), 5)
+# cleaned_timeline <- rtweetclean::clean_df(timeline_rtweet_toy)
+# kable(tail(colnames(cleaned_timeline), 5))
 ```
 
 We can see that new columns have been added to the dataframe. The contents of these columns can be seen below alongside the original text column provided by rtweet for comparison...
 
 ```{r clean_df_column_contents}
-# head( subset(cleaned_timeline, select=c(text,text_only,word_count,emojis, prptn_rts_vs_avg, prptn_favorites_vs_avg)),5)
+# kable(head( subset(cleaned_timeline, select=c(text,text_only,word_count,emojis, prptn_rts_vs_avg, prptn_favorites_vs_avg)),5))
 ```
 
 # tweet\_words()
@@ -103,7 +103,7 @@ We can see that new columns have been added to the dataframe. The contents of th
 
 ```{r tweet_words_example}
 # tweet_words_example <- rtweetclean::tweet_words(cleaned_timeline, top_n=5)
-# tweet_words_example
+# kable(tweet_words_example)
 ```
 
 # sentiment\_total
