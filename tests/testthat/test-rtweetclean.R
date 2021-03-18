@@ -149,7 +149,7 @@ test_that('tweet_words is not returning the correct dataframe', {
 
 # tests for sentiment_total function
 
-tweets <- data.frame(word = c("this is example tweet 1",
+tweets <- data.frame(text_only = c("this is example tweet 1",
                                   "this is example tweet 2 with a few extra words",
                                   "is third",
                                   "4th tweet",
@@ -185,6 +185,6 @@ test_that('sentiment_total is not dropping sentiments with word_counts==0)', {
 })
 
 
-
+sentiment_total(tweets)
 
 

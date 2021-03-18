@@ -197,9 +197,9 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 
   # Check tweets is a list
-  if(typeof(tweets) != 'list'){
-    stop("tweets input must be  a list")
-  }
+  #if(typeof(tweets) != 'list'){
+  #  stop("tweets input must be  a list")
+  #}
 
   # Check drop_sentiment is bool
   if(drop_sentiment != TRUE & drop_sentiment != FALSE){
@@ -208,8 +208,8 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 
   # messy wrangling necessary for separate_rows() to work
   tweet_words <- tweets %>% dplyr::mutate(id = dplyr::row_number())
-  tweet_words <- tidyr::separate_rows(tweets, word)
-  tweet_words <- tweet_words %>% dplyr::select(word)
+  tweet_words <- tidyr::separate_rows(tweets, text_only)
+  tweet_words <- tweet_words %>% dplyr::select(text_only)
   total_words = nrow(tweet_words)
 
   # lexicon
@@ -271,11 +271,12 @@ engagement_by_hour <- function(tweets_df) {
 }
 
 
+tweets = data.frame(id = c(1,2,3,4,5),
+                        text_only = c("this is example tweet 1",
+                                      "this is example tweet 2 with a few extra words",
+                                      "is third",
+                                      "4th tweet",
+                                      "fifth tweet"))
 
-tweets = data.frame(word = c("this is example tweet 1",
-                                                "this is example tweet 2 with a few extra words",
-                                                "is third",
-                                                "4th tweet",
-                                                "fifth tweet"))
-
-
+t1 <- sentiment_total(tweets)
+t2 <- sentiment_total(tweets, drop_sentiment = TRUE)
