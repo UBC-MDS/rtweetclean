@@ -18,7 +18,9 @@ Imports:
     ggplot2,
     tidyr,
     tidytext,
-    rtweet
+    rtweet,
+    rlang,
+    stringr
 Suggests: 
     testthat,
     covr
