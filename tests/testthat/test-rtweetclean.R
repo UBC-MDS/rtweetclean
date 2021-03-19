@@ -156,40 +156,40 @@ test_that('tweet_words is not returning the correct dataframe', {
 
 # tests for sentiment_total function
 
-tweets <- data.frame(text_only = c("this is example tweet 1",
-                                   "this is example tweet 2 with a few extra words",
-                                   "is third",
-                                   "4th tweet",
-                                   "fifth tweet"))
-
-sentiment_output <- rtweetclean::sentiment_total(tweets)
-sentiment_output2 <- rtweetclean::sentiment_total(tweets, drop_sentiment = TRUE)
-
-test_that('sentiment_total requires a list type for tweets input', {
-
-  testthat::expect_equal(typeof(tweets), "list")
-})
-
-test_that('sentiment_total output object is not a data.frame', {
-
-  testthat::expect_type(sentiment_output, "list")
-})
-
-test_that('sentiment_total sentiment column is not a chr data type', {
-  testthat::expect_equal(class(sentiment_output$sentiment), "character")
-})
-
-test_that('sentiment_total word_count column is not integer data type', {
-  testthat::expect_equal(typeof(sentiment_output$word_count), "integer")
-})
-
-test_that('sentiment_total total_words column is not integer data type', {
-  testthat::expect_equal(typeof(sentiment_output$total_words), "integer")
-})
-
-test_that('sentiment_total is not dropping sentiments with word_counts==0)', {
-  testthat::expect_equal(min(sentiment_output2$word_count), 1)
-})
+# tweets <- data.frame(text_only = c("this is example tweet 1",
+#                                    "this is example tweet 2 with a few extra words",
+#                                    "is third",
+#                                    "4th tweet",
+#                                    "fifth tweet"))
+#
+# sentiment_output <- rtweetclean::sentiment_total(tweets)
+# sentiment_output2 <- rtweetclean::sentiment_total(tweets, drop_sentiment = TRUE)
+#
+# test_that('sentiment_total requires a list type for tweets input', {
+#
+#   testthat::expect_equal(typeof(tweets), "list")
+# })
+#
+# test_that('sentiment_total output object is not a data.frame', {
+#
+#   testthat::expect_type(sentiment_output, "list")
+# })
+#
+# test_that('sentiment_total sentiment column is not a chr data type', {
+#   testthat::expect_equal(class(sentiment_output$sentiment), "character")
+# })
+#
+# test_that('sentiment_total word_count column is not integer data type', {
+#   testthat::expect_equal(typeof(sentiment_output$word_count), "integer")
+# })
+#
+# test_that('sentiment_total total_words column is not integer data type', {
+#   testthat::expect_equal(typeof(sentiment_output$total_words), "integer")
+# })
+#
+# test_that('sentiment_total is not dropping sentiments with word_counts==0)', {
+#   testthat::expect_equal(min(sentiment_output2$word_count), 1)
+# })
 
 
 

@@ -194,65 +194,65 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 }
 
 
-#' Sentiment Word Counts
+#' #' Sentiment Word Counts
+#' #'
+#' #'Takes an input of of single english words and outputs the number of words associated
+#' #'with eight emotions and positive/negative sentiment. This is based on the the
+#' #'crowd-sourced NRC Emotion Lexicon, which associates words with eight basic emotions
+#' #'(anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two
+#' #'sentiments (negative and positive). For more information on NRC:
+#' #'http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm
+#' #'Note that words can be 0:n with emotions (either associated with none, 1, or many).
+#' #'
+#' #' @param tweets 1-column dataframe
+#' #' @param drop_sentiment A true/false bool that drops sentiment rows if no words are
+#' #'  associated with that sentiment
+#' #'
+#' #' @return dataframe
+#' #' @export
+#' #'
+#' #' @examples
+#' sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 #'
-#'Takes an input of of single english words and outputs the number of words associated
-#'with eight emotions and positive/negative sentiment. This is based on the the
-#'crowd-sourced NRC Emotion Lexicon, which associates words with eight basic emotions
-#'(anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two
-#'sentiments (negative and positive). For more information on NRC:
-#'http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm
-#'Note that words can be 0:n with emotions (either associated with none, 1, or many).
+#'   # Check tweets is a list
+#'   if(typeof(tweets) != 'list'){
+#'     stop("tweets input must be  a list")
+#'   }
 #'
-#' @param tweets 1-column dataframe
-#' @param drop_sentiment A true/false bool that drops sentiment rows if no words are
-#'  associated with that sentiment
+#'   # Check drop_sentiment is bool
+#'   if(drop_sentiment != TRUE & drop_sentiment != FALSE){
+#'     stop("drop_sentiment must be a bool")
+#'   }
 #'
-#' @return dataframe
-#' @export
+#'   # messy wrangling necessary for separate_rows() to work
+#'   tweet_words <- tweets %>% dplyr::mutate(id = dplyr::row_number())
+#'   tweet_words <- tidyr::separate_rows(tweets, text_only)
+#'   tweet_words <- tweet_words %>% dplyr::select(text_only)
+#'   total_words = nrow(tweet_words)
 #'
-#' @examples
-sentiment_total <- function(tweets, drop_sentiment = FALSE) {
-
-  # Check tweets is a list
-  if(typeof(tweets) != 'list'){
-    stop("tweets input must be  a list")
-  }
-
-  # Check drop_sentiment is bool
-  if(drop_sentiment != TRUE & drop_sentiment != FALSE){
-    stop("drop_sentiment must be a bool")
-  }
-
-  # messy wrangling necessary for separate_rows() to work
-  tweet_words <- tweets %>% dplyr::mutate(id = dplyr::row_number())
-  tweet_words <- tidyr::separate_rows(tweets, text_only)
-  tweet_words <- tweet_words %>% dplyr::select(text_only)
-  total_words = nrow(tweet_words)
-
-  # lexicon
-  emotion_lexicon_df <- utils::read.csv("lexicon.csv") # NRC dataset
-
-  # inner join on 2 dataframes
-  tweet_words_sentiment <- merge(tweet_words, emotion_lexicon_df, all = FALSE)
-
-  #if user deviates from default parameter drop 0 count sentiments
-  if (drop_sentiment == TRUE) {
-    tweet_words_sentiment <- tweet_words_sentiment %>%
-      dplyr::filter(count == 1)
-  }
-  # get aggregated sentiment-words counts
-  tweet_words_sentiment <- tweet_words_sentiment %>%
-    dplyr::group_by(sentiment) %>%
-    dplyr::summarise(word_count = sum(count))
-
-  # add total words from input list of tweets
-  tweet_words_sentiment <- tweet_words_sentiment %>%
-    dplyr::mutate(total_words = total_words)
-
-
-  return(tweet_words_sentiment)
-}
+#'   # lexicon
+#'   emotion_lexicon_df <- utils::read.csv("lexicon.csv") # NRC dataset
+#'
+#'   # inner join on 2 dataframes
+#'   tweet_words_sentiment <- merge(tweet_words, emotion_lexicon_df, all = FALSE)
+#'
+#'   #if user deviates from default parameter drop 0 count sentiments
+#'   if (drop_sentiment == TRUE) {
+#'     tweet_words_sentiment <- tweet_words_sentiment %>%
+#'       dplyr::filter(count == 1)
+#'   }
+#'   # get aggregated sentiment-words counts
+#'   tweet_words_sentiment <- tweet_words_sentiment %>%
+#'     dplyr::group_by(sentiment) %>%
+#'     dplyr::summarise(word_count = sum(count))
+#'
+#'   # add total words from input list of tweets
+#'   tweet_words_sentiment <- tweet_words_sentiment %>%
+#'     dplyr::mutate(total_words = total_words)
+#'
+#'
+#'   return(tweet_words_sentiment)
+#' }
 
 #' Average engagement by hour
 #'
