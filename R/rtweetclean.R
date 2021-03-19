@@ -231,8 +231,7 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
   total_words = nrow(tweet_words)
 
   # lexicon
-  emotion_lexicon_df <- utils::read.csv("NRC-Emotion-Lexicon-Wordlevel-v0.92.txt",
-                                 header = TRUE, sep = "\t") # NRC dataset
+  emotion_lexicon_df <- utils::read.csv("lexicon.csv") # NRC dataset
 
   # inner join on 2 dataframes
   tweet_words_sentiment <- merge(tweet_words, emotion_lexicon_df, all = FALSE)
