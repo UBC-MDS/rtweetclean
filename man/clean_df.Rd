@@ -40,7 +40,10 @@ proportion_of_avg_retweets: a proportion value of how many retweets a tweet rece
 proportion_of_avg_favorites: a proportion value of how many favorites a tweet received compared to the account average
 }
 \examples{
-text <- c("example tweet text 1 @user2 @user", "#example #tweet 2 ", "example tweet 3 https://t.co/G4ziCaPond", "example tweet 4")
+text <- c("example tweet text 1 @user2 @user",
+"#example #tweet 2 ",
+"example tweet 3 https://t.co/G4ziCaPond",
+"example tweet 4")
 retweet_count <- c(43, 12, 24, 29)
 favorite_count <- c(85, 41, 65, 54)
 raw_df <- data.frame(text, retweet_count, favorite_count)

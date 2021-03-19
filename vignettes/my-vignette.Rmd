@@ -15,22 +15,24 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(rtweetclean)
+#library(rtweetclean)
 library(knitr)
+library(rtweet)
 ```
 
 # Getting a tweepy dataframe
 
--   This package is intended to be used to build upon the already existing rtweet package. In order to work with any of its functions a timeline dataframe returned by rtweet must be used. This **requires the use of a twitter developer account/app to access the twitter api** (we will be loading an example dataframe in case you do not have access to one). If you do not have an app and are interested in creating one [please follow the instructions here](https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html). Here are the instructions for how to retrieve this dataframe.
+-   This package is intended to be used to build upon the already existing rtweet package. In order to work with any of its functions a timeline dataframe returned by rtweet must be used. This **requires the use of a twitter developer account/app to access the twitter api** (we will be loading an example dataframe in case you do not have access to one). Note that my keys are stored locally on my machine and called using Sys.getenv(""), if you want to paste you keys you can do so by setting each of the objects to a string containing the required credentials (i.e. key \<- "\#\#\#\#\#"). If you do not have an app and are interested in creating one [please follow the instructions here](https://cran.r-project.org/web/packages/rtweet/vignettes/auth.html). Here are the instructions for how to retrieve this dataframe.
 
 ```{r load_dataframe_rtweet}
-# If you have a twitter developer account/app you can copy/paste your access information and unmute the code below to scrape a twitter timeline of your choosing!
+# If you have a twitter developer account/app you can copy/paste your access information in place of my Sys.getenv("") functions
 
-# appname <- "#################"
-# key <- "########################"
-# secret <- "##########################"
-# access_token <- "########-######################"
-# access_secret <- "##############################"
+# appname <- Sys.getenv("appname")
+# key <- Sys.getenv("key")
+# secret <- Sys.getenv("secret")
+# access_token <- Sys.getenv("access_token")
+# access_secret <- Sys.getenv("access_secret")
+# 
 # 
 # twitter_token <- create_token(
 #   app = appname,
@@ -39,7 +41,7 @@ library(knitr)
 #   access_token = access_token,
 #   access_secret = access_secret)
 # 
-# timeline_rtweet <- get_timeline("TWITTER_USERNAME", n = 20)
+# timeline_rtweet <- get_timeline("taylorswift13", n = 10)
 # 
 # head(timeline_rtweet)
 ```
@@ -48,31 +50,29 @@ Since everyone may not have twitter developer access we have provided an example
 
 ```{r load_example_df}
 # From working director rtweetclean/vignettes
-#timeline_rtweet <- rtweet::read_twitter_csv("../data/rtweet_raw_df.csv", unflatten = FALSE)
-#head(timeline_rtweet)
 
 text <- c("example tweet text 1 @user2 @user", "#example #tweet 2 ", "example tweet 3 https://t.co/G4ziCaPond", "example tweet 4")
 retweet_count <- c(43, 12, 24, 29)
 favorite_count <- c(85, 41, 65, 54)
-timeline_rtweet <- data.frame(text, retweet_count, favorite_count)
-head(timeline_rtweet)
+timeline_rtweet_toy <- data.frame(text, retweet_count, favorite_count)
+head(timeline_rtweet_toy)
 ```
 
 # clean\_df()
 
 The first of our functions, `clean_df()` is used to modify the timeline dataframe provided by rtweet by adding new columns by extraction information from tweets that tweepy does not provide on its own. The user is able to choose which columns are generated. Options for generateable columns include...
 
--   text\_only: strips emojis, hashtags, and hyperlinks from the text column
+-   `text_only`: strips emojis, hashtags, and hyperlinks from the `text` column
 
--   word\_count: counts the number of words contained in the text\_only column
+-   `word_count`: counts the number of words contained in the `text_only` column
 
--   emojis: contains the extracted emojis from tweet text
+-   `emojis`: contains the extracted emojis from tweet `text` column
 
--   proportion\_of\_avg\_retweets: a proportion value of how many retweets a tweet received compared to the average in the dataframe
+-   `proportion_of_avg_retweets`: a proportion value of how many retweets a tweet received compared to the average in the dataframe
 
--   proportion\_of\_avg\_favorites: a proportion value of how many favorites a tweet received compared to the average in the dataframe
+-   `proportion_of_avg_favorites`: a proportion value of how many favorites a tweet received compared to the average in the dataframe
 
-Different columns can be specified to be added by specifying their arguments as "TRUE" or "FALSE" when calling the clean\_df function. They are all set to TRUE by default.
+Different columns can be specified to be added by specifying their arguments as `TRUE` or `FALSE` when calling the `clean_df()` function. They are all set to `TRUE` by default.
 
 clean\_df \<- function(raw\_tweets\_df,
 
@@ -87,36 +87,45 @@ proportion\_of\_avg\_retweets = TRUE,
 proportion\_of\_avg\_favorites = TRUE)
 
 ```{r clean_df_demo}
-cleaned_timeline <- rtweetclean::clean_df(timeline_rtweet)
-tail(colnames(cleaned_timeline), 5)
+# cleaned_timeline <- rtweetclean::clean_df(timeline_rtweet_toy)
+# kable(tail(colnames(cleaned_timeline), 5))
 ```
 
 We can see that new columns have been added to the dataframe. The contents of these columns can be seen below alongside the original text column provided by rtweet for comparison...
 
 ```{r clean_df_column_contents}
-head( subset(cleaned_timeline, select=c(text,text_only,word_count,emojis, prptn_rts_vs_avg, prptn_favorites_vs_avg)),3)
+# kable(head( subset(cleaned_timeline, select=c(text,text_only,word_count,emojis, prptn_rts_vs_avg, prptn_favorites_vs_avg)),5))
 ```
 
-# tweet\_words
+# tweet\_words()
+
+`tweet_words` can be **used with a dataframe that is returned by `clean_df()`** and returns a list of the most frequently used words based on the `text_only` column generated by `clean_df()`. The `top_n` argument can be adjusted to return a specified number of the most frequently used words in the `text_only` column.
+
+tweet\_words(clean\_rtweet\_dataframe, top\_n = 5)
 
 ```{r tweet_words_example}
-#tweet_words_example <- rtweetclean::tweet_words(cleaned_timeline, top_n=5)
-#tweet_words_example
-print("filler")
+# tweet_words_example <- rtweetclean::tweet_words(cleaned_timeline, top_n=5)
+# kable(tweet_words_example)
 ```
 
 # sentiment\_total
 
+Takes the **dataframe output of `clean_df()`** as input. Takes the `text_only` column of tweets and returns a dataframe summarizing the number of tweeted words associated with particular emotional sentiments based on the 'crowd-sourced NRC Emotion Lexicon' . By default all sentiments listed in the lexicon will be presented regardless of if they are included in the dataset or not. If you wish to only see the sentiments that are present in the dataset then set `drop_sentiment` to FALSE.
+
+sentiment\_total(clean\_rtweet\_dataframe, drop\_sentiment = FALSE)
+
 ```{r sentiment_total_example}
-# sentiment_total_example <- rtweetclean::sentiment_total(cleaned_timeline, drop_sentiment = FALSE)
-# sentiment_total_example
-print("filler")
+#sentiment_total_example <- rtweetclean::sentiment_total(cleaned_timeline, drop_sentiment = FALSE)
+#sentiment_total_example
 ```
 
-# engagement\_by\_hour
+# engagement\_by\_hour()
+
+`engegement_by_hour()` is used to return a line plot generated via ggplot2 of the combined total of likes and retweets a user received depending on the hour of day their tweets were made at. It takes either a **dataframe returned by `clean_df()`** OR an **unedited dataframe returned by the `rtweet` function `get_timeline()`** as input and builds a graph based on the `created_at` column.
+
+engagement\_by\_hour(clean\_rtweet\_dataframe)
 
 ```{r engagement_by_hour_example}
-#engagement_by_hour_example <- rtweetclean::engagement_by_hour(cleaned_timeline)
-#engagement_by_hour_example
-print("filler")
+# engagement_by_hour_example <- rtweetclean::engagement_by_hour(cleaned_timeline)
+# engagement_by_hour_example
 ```

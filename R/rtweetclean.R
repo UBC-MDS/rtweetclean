@@ -212,7 +212,7 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 #' @export
 #'
 #' @examples
-#'tweets <- data.frame(word = c("this is example tweet 1",
+#'tweets <- data.frame(text_only = c("this is example tweet 1",
 #'                              "this is example tweet 2 with a few extra words",
 #'                              "is third",
 #'                              "4th tweet",
@@ -271,12 +271,10 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 #' @export
 #'
 #' @examples
-#'my_tweets <- data.frame (created_at  = c("2021-03-06 16:03:31",
-#'"2021-03-05 21:57:47",
-#''2021-03-05 05:50:50'),
-#favorite_count = c(20, 10, 2),
-#retweet_count = c(20, 10, 2))
-#' engagement_by_hour(my_tweets)
+#'my_tweets <- data.frame (created_at  = c("2021-03-06 16:03:31", "2021-03-05 21:57:47", '2021-03-05 05:50:50'),
+#'favorite_count = c(20, 10, 2),
+#'retweet_count = c(20, 10, 2))
+#'engagement_by_hour(my_tweets)
 engagement_by_hour <- function(tweets_df) {
 
   # Check input type of tweets_df
