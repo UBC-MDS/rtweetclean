@@ -21,11 +21,15 @@ Imports:
     rtweet,
     stringr,
     knitr,
-    here
+    here,
+    rlang
 Suggests: 
     testthat,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
 License: MIT + file LICENSE
 Depends: 
     R (>= 2.10)
+URL: https://github.com/UBC-MDS/rtweetclean
+BugReports: https://github.com/UBC-MDS/rtweetclean/issues
