@@ -76,10 +76,19 @@ Functions capabilities:
 |testthat| 
 |rmarkdown|
 
-| Column 1       | 
+| R Package      | 
 | :------------- | 
-|  Cell Contents | 
-| You Can Also   | 
+|  magrittr         | 
+| dplyr          | 
+| lubridate   |
+| ggplot2   |
+| tidyr   |
+| tidytext  |
+| rtweet  | 
+| stringr   |
+| knitr   | 
+| testthat  | 
+| rmarkdown   |
 
 
 ## Usage
