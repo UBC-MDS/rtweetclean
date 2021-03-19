@@ -6,10 +6,9 @@ Our package aims to add additional resources for users of the already existing r
 
 ## Installation
 
-`# install.packages("devtools")
+`install.packages("devtools")
 devtools::install_github("UBC-MDS/rtweetclean")
 `
-
 ## Features
 
 Functions capabilities:
@@ -24,7 +23,7 @@ Functions capabilities:
 
 ## Dependencies
 
-**R **|
+**R**|
 :-----:|
 magrittr|
 dplyr|
