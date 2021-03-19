@@ -63,7 +63,7 @@ Functions capabilities:
 ## Dependencies
 
 |**R**| 
-|:—–| 
+|:—–---| 
 |magrittr| 
 |dplyr| 
 |lubridate|
@@ -74,7 +74,7 @@ Functions capabilities:
 |stringr|
 |knitr| 
 |testthat| 
-rmarkdown|
+|rmarkdown|
 
 ## Usage
 
