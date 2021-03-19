@@ -1,3 +1,141 @@
+#' Adds new column(s) to dataframe returned by rtweet get_timeline() function with
+#' default parameters based on user specified input
+#'
+#'Returns a new dataframe containing additional columns that were not in the original
+#'Generatable columns include...
+#'  text_only: strips emojis, hashtags, and hyperlinks from the text column
+#'  word_count: counts the number of words contained in the text_only column
+#'  emojis: contains the extracted emojis from text
+#'  proportion_of_avg_retweets: a proportion value of how many retweets a tweet received compared to the account average
+#'  proportion_of_avg_favorites: a proportion value of how many favorites a tweet received compared to the account average
+#'
+#' @param raw_tweets_df dataframe
+#' @param text_only bool
+#' @param word_count bool
+#' @param emojis bool
+#' @param proportion_of_avg_retweets bool
+#' @param proportion_of_avg_favorites bool
+#'
+#' @return dataframe
+#' @export
+#'
+#' @examples
+#' text <- c("example tweet text 1 @user2 @user",
+#' "#example #tweet 2 ",
+#' "example tweet 3 https://t.co/G4ziCaPond",
+#' "example tweet 4")
+#' retweet_count <- c(43, 12, 24, 29)
+#' favorite_count <- c(85, 41, 65, 54)
+#' raw_df <- data.frame(text, retweet_count, favorite_count)
+#' clean_df(raw_df)
+#' clean_df(raw_df, emojis = FALSE)
+clean_df <- function(raw_tweets_df,
+                     text_only = TRUE,
+                     word_count = TRUE,
+                     emojis = TRUE,
+                     proportion_of_avg_retweets = TRUE,
+                     proportion_of_avg_favorites = TRUE)
+{
+
+  data_types <- sapply(raw_tweets_df, class)
+
+  # test that input is df
+  if(!is.data.frame(raw_tweets_df)){
+    stop("Input needs to be of type data.frame")
+  }
+
+  # test that retweet_count exists
+  if (!("retweet_count" %in% colnames(raw_tweets_df))) {
+    stop("
+         No retweet_count column present in dataframe needed to
+         generate proportion_of_avg_retweets")
+  }
+
+  # test that retweet_count is the right type
+  if(data_types["retweet_count"] != "integer" && data_types["retweet_count"] != "numeric"){
+    stop("'retweet_count' col of input wrong datatype should be integer or numeric")
+  }
+
+  # test that favorite_count exists
+  if (!("favorite_count" %in% colnames(raw_tweets_df))) {
+    stop("
+         No favorite_count column present in dataframe needed to
+         generate proportion_of_avg_favorites")
+  }
+
+  # test that favorite_count is the right type
+  if(!data_types["favorite_count"] == "integer" && !data_types["favorite_count"] == "numeric"){
+    stop("'favorite_count' col of input wrong datatype should be integer or numeric")
+  }
+
+  # test that text exists
+  if (!("text" %in% colnames(raw_tweets_df))) {
+    stop("
+         No text column present in dataframe needed to
+         generate text_only and/or word_count")
+  }
+
+  # test that input is df
+  if(!data_types["text"] == "character"){
+    stop("'text' col of input wrong datatype should be character")
+  }
+
+  tweets_df <- data.frame(raw_tweets_df)
+
+  if (proportion_of_avg_retweets) {
+    avg_retweets <- mean(tweets_df$retweet_count)
+  }
+
+  if (proportion_of_avg_favorites) {
+    avg_favorites <- mean(tweets_df$favorite_count)
+  }
+
+  for (i in 1:nrow(tweets_df)) {
+
+    tweet_text <- tweets_df$text[i]
+
+    # Remove emojis
+    text_only_str <- gsub("\\p{So}|\\p{Cn}", " ", tweet_text, perl = TRUE)
+    # Remove "@'s"
+    text_only_str <- gsub("@\\w+ *", " ", text_only_str)
+    # Remove "#'s"
+    text_only_str <- gsub("#\\w+ *", " ", text_only_str)
+    # Replace https ampersands
+    text_only_str <- gsub("&amp;", "&", text_only_str)
+    # Remove https links
+    text_only_str <- gsub(" ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)", " ", text_only_str)
+    # Remove new lines
+    text_only_str <- gsub("[\r\n]", " ", text_only_str)
+    # Remove double spaces
+    text_only_str <- gsub(" +", " ", text_only_str)
+    # Remove  whitespace
+    text_only_str <- trimws(text_only_str)
+
+    if (text_only) {
+      tweets_df$text_only[i] <- text_only_str
+    }
+
+    if (word_count){
+      tweets_df$word_count[i] <- sapply(strsplit(text_only_str, "\\s+"), length)
+    }
+
+    if (emojis) {
+      tweets_df$emojis[i] <- as.list(stringr::str_extract_all(tweets_df$text[i], "\\p{So}|\\p{Cn}"))
+    }
+
+    if (proportion_of_avg_retweets) {
+      tweets_df$prptn_rts_vs_avg[i] <- tweets_df$retweet_count[i] / avg_retweets
+    }
+
+    if (proportion_of_avg_favorites) {
+      tweets_df$prptn_favorites_vs_avg[i] <- tweets_df$favorite_count[i] / avg_favorites
+    }
+
+  }
+
+  return(tweets_df)
+
+}
 
 #' Most common words
 #'
@@ -48,3 +186,39 @@ tweet_words <- function(clean_dataframe, top_n=1) {
   output
 }
 
+
+#' Average engagement by hour
+#'
+#' Creates a line chart of average number of likes and retweets received based on hour of tweet posted.
+#'
+#' @param tweets_df dataframe
+#'
+#' @return ggplot object
+#' @export
+#'
+#' @examples
+#'my_tweets <- data.frame (created_at  = c("2021-03-06 16:03:31", "2021-03-05 21:57:47", '2021-03-05 05:50:50'),
+#'favorite_count = c(20, 10, 2),
+#'retweet_count = c(20, 10, 2))
+#'engagement_by_hour(my_tweets)
+engagement_by_hour <- function(tweets_df) {
+
+  # Check input type of tweets_df
+  if(!is.data.frame(tweets_df)){
+    stop("Input needs to be of type data.frame")
+  }
+
+  # Wrangle data
+  grouped_df <- tweets_df %>%
+    dplyr::mutate(hour = lubridate::hour(lubridate::ymd_hms(as.character(factor(created_at))))) %>%
+    dplyr::mutate(total_engagement = favorite_count + retweet_count) %>%
+    dplyr::group_by(hour) %>%
+    dplyr::summarise(average_engagement = mean(total_engagement))
+
+  # Plot chart
+  grouped_df %>% ggplot2::ggplot(ggplot2::aes(x=hour, y=average_engagement)) +
+    ggplot2::geom_line() +
+    ggplot2::labs(title = 'Average engagement (likes + retweets) by hour',
+                  x = 'Time (hour of day)',
+                  y = 'Average engagement')
+}
