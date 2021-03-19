@@ -129,6 +129,5 @@ my_tweets <- data.frame (created_at  = c("2021-03-06 16:03:31", "2021-03-05 21:5
 favorite_count = c(20, 10, 2),
 retweet_count = c(20, 10, 2))
 
-engagement_by_hour_example <- rtweetclean::engagement_by_hour(my_tweets)
-engagement_by_hour_example
+rtweetclean::engagement_by_hour(my_tweets)
 ```
