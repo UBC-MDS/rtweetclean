@@ -79,7 +79,7 @@ rtweetclean provides additional functionality to the existing rtweet package by 
 
 ## Documentation
 
-- TODO
+- A link to documentaiton for this package can be found [here](https://ubc-mds.github.io/rtweetclean/)
 
 ## Contributors
 
