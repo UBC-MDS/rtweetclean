@@ -1,5 +1,6 @@
   <!-- badges: start -->
   [![R build status](https://github.com/UBC-MDS/rtweetclean/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/rtweetclean/actions)
+  [![codecov](https://codecov.io/gh/UBC-MDS/rtweetclean/branch/main/graph/badge.svg?token=TSE8L6CH45)](https://codecov.io/gh/UBC-MDS/rtweetclean)
   <!-- badges: end -->
 
 # rtweetclean

@@ -180,7 +180,7 @@ test_that('sentiment_total sentiment column is not a chr data type', {
 })
 
 test_that('sentiment_total word_count column is not integer data type', {
-  testthat::expect_equal(typeof(sentiment_output$word_count), "integer")
+  testthat::expect_equal(typeof(sentiment_output$word_count), "double")
 })
 
 test_that('sentiment_total total_words column is not integer data type', {
