@@ -63,7 +63,7 @@ Functions capabilities:
 ## Dependencies
 
 |**R**| 
-|:—–:| 
+|:—–| 
 |magrittr| 
 |dplyr| 
 |lubridate|
