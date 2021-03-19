@@ -212,12 +212,6 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 #' @export
 #'
 #' @examples
-#'tweets <- data.frame(text_only = c("this is example tweet 1",
-#'                              "this is example tweet 2 with a few extra words",
-#'                              "is third",
-#'                              "4th tweet",
-#'                              "fifth tweet"))
-#'sentiment_total(tweets, drop_sentiment = FALSE)
 sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 
   # Check tweets is a list
@@ -237,7 +231,7 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
   total_words = nrow(tweet_words)
 
   # lexicon
-  emotion_lexicon_df <- read.csv("NRC-Emotion-Lexicon-Wordlevel-v0.92.txt",
+  emotion_lexicon_df <- utils::read.csv("NRC-Emotion-Lexicon-Wordlevel-v0.92.txt",
                                  header = TRUE, sep = "\t") # NRC dataset
 
   # inner join on 2 dataframes

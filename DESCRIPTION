@@ -20,7 +20,8 @@ Imports:
     tidytext,
     rtweet,
     stringr,
-    knitr
+    knitr,
+    utils
 Suggests: 
     testthat,
     covr,
