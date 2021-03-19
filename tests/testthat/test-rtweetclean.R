@@ -1,8 +1,15 @@
-
-
 # Helper data to test clean_df function
 
-test_raw_df <- rtweet::read_twitter_csv("../rtweet_raw_df.csv", unflatten = FALSE)
+text <- c("example tweet text 1 @user2 @user",
+          "#example #tweet 2 ",
+          "example tweet 3 https://t.co/G4ziCaPond",
+          "example tweet 4")
+retweet_count <- c(43, 12, 24, 29)
+favorite_count <- c(85, 41, 65, 54)
+test_raw_df <- data.frame(text, retweet_count, favorite_count)
+
+#test_raw_df <- rtweet::read_twitter_csv("../rtweet_raw_df.csv", unflatten = FALSE)
+
 # Test 1 for clean_df function
 test_that('clean_df should take a dataframe as input', {
  testthat::expect_error(clean_df("not a dataframe"))
@@ -71,8 +78,8 @@ test_that('clean_df column types should be the right type', {
   )
 
   df_wrong_retweet_type <- data.frame(text = c("tweet", "tweeet", "tweeeeeeeeeet"),
-                                   retweet_count = c(23, 41, 32),
-                                   favorite_count = c("a", "b", "c")
+                                   retweet_count = c("a", "b", "c"),
+                                   favorite_count = c(23, 41, 32)
   )
 
   df_wrong_favorite_type <- data.frame(text = c("tweet", "tweeet", "tweeeeeeeeeet"),
@@ -149,11 +156,11 @@ test_that('tweet_words is not returning the correct dataframe', {
 
 # tests for sentiment_total function
 
-tweets <- data.frame(word = c("this is example tweet 1",
-                                  "this is example tweet 2 with a few extra words",
-                                  "is third",
-                                  "4th tweet",
-                                  "fifth tweet"))
+tweets <- data.frame(text_only = c("this is example tweet 1",
+                                   "this is example tweet 2 with a few extra words",
+                                   "is third",
+                                   "4th tweet",
+                                   "fifth tweet"))
 
 sentiment_output <- rtweetclean::sentiment_total(tweets)
 sentiment_output2 <- rtweetclean::sentiment_total(tweets, drop_sentiment = TRUE)
@@ -165,11 +172,11 @@ test_that('sentiment_total requires a list type for tweets input', {
 
 test_that('sentiment_total output object is not a data.frame', {
 
-   testthat::expect_type(sentiment_output, "list")
+  testthat::expect_type(sentiment_output, "list")
 })
 
 test_that('sentiment_total sentiment column is not a chr data type', {
-   testthat::expect_equal(class(sentiment_output$sentiment), "character")
+  testthat::expect_equal(class(sentiment_output$sentiment), "character")
 })
 
 test_that('sentiment_total word_count column is not integer data type', {
@@ -177,14 +184,12 @@ test_that('sentiment_total word_count column is not integer data type', {
 })
 
 test_that('sentiment_total total_words column is not integer data type', {
- testthat::expect_equal(typeof(sentiment_output$total_words), "integer")
+  testthat::expect_equal(typeof(sentiment_output$total_words), "integer")
 })
 
 test_that('sentiment_total is not dropping sentiments with word_counts==0)', {
- testthat::expect_equal(min(sentiment_output2$word_count), 1)
+  testthat::expect_equal(min(sentiment_output2$word_count), 1)
 })
-
-
 
 
 

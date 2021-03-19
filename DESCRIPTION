@@ -18,10 +18,14 @@ Imports:
     ggplot2,
     tidyr,
     tidytext,
-    rtweet
+    rtweet,
+    stringr,
+    knitr
 Suggests: 
     testthat,
-    covr
+    covr,
+    rmarkdown
 URL: https://github.com/UBC-MDS/rtweetclean
 BugReports: https://github.com/UBC-MDS/rtweetclean/issues
+VignetteBuilder: knitr
 License: MIT + file LICENSE
