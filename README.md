@@ -62,8 +62,19 @@ Functions capabilities:
 
 ## Dependencies
 
-|**R**| :—–:| magrittr| dplyr| lubridate| ggplot2| tidyr| tidytext|
-rtweet| stringr| knitr| testthat| rmarkdown
+|**R**| 
+|:—–:| 
+|magrittr| 
+|dplyr| 
+|lubridate|
+|ggplot2|
+|tidyr|
+|tidytext|
+|rtweet| 
+|stringr|
+|knitr| 
+|testthat| 
+rmarkdown|
 
 ## Usage
 
