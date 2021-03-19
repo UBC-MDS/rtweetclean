@@ -112,25 +112,72 @@
   access_secret <span class="op">=</span> <span class="va">access_secret</span><span class="op">)</span>
 
 <span class="va">timeline_rtweet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rtweet/man/get_timeline.html" class="external-link">get_timeline</a></span><span class="op">(</span><span class="st">"taylorswift13"</span>, n <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>
-<span class="co">#&gt; Warning: 215 - Bad Authentication data.</span>
-<span class="co">#&gt; Warning: rate limit exceeded. mins until rate limit resets.</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">timeline_rtweet</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 0 x 0</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 6 x 90</span>
+<span class="co">#&gt;   user_id  status_id   created_at          screen_name  text             source </span>
+<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;dttm&gt;              &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;  </span>
+<span class="co">#&gt; 1 17919972 1372201639… 2021-03-17 15:02:19 taylorswift… a marvelous tim… Twitte…</span>
+<span class="co">#&gt; 2 17919972 1371311667… 2021-03-15 04:05:54 taylorswift… The fans are th… Twitte…</span>
+<span class="co">#&gt; 3 17919972 1367628391… 2021-03-05 00:09:52 taylorswift… @DavidArchie I … Twitte…</span>
+<span class="co">#&gt; 4 17919972 1366401657… 2021-03-01 14:55:16 taylorswift… Hey Ginny &amp;amp;… Twitte…</span>
+<span class="co">#&gt; 5 17919972 1365437047… 2021-02-26 23:02:15 taylorswift… I miss you terr… Twitte…</span>
+<span class="co">#&gt; 6 17919972 1365086295… 2021-02-25 23:48:29 taylorswift… YES!!! Fingers … Twitte…</span>
+<span class="co">#&gt; # … with 84 more variables: display_text_width &lt;dbl&gt;, reply_to_status_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   reply_to_user_id &lt;chr&gt;, reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   is_retweet &lt;lgl&gt;, favorite_count &lt;int&gt;, retweet_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   quote_count &lt;int&gt;, reply_count &lt;int&gt;, hashtags &lt;list&gt;, symbols &lt;list&gt;,</span>
+<span class="co">#&gt; #   urls_url &lt;list&gt;, urls_t.co &lt;list&gt;, urls_expanded_url &lt;list&gt;,</span>
+<span class="co">#&gt; #   media_url &lt;list&gt;, media_t.co &lt;list&gt;, media_expanded_url &lt;list&gt;,</span>
+<span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;,</span>
+<span class="co">#&gt; #   ext_media_expanded_url &lt;list&gt;, ext_media_type &lt;chr&gt;,</span>
+<span class="co">#&gt; #   mentions_user_id &lt;list&gt;, mentions_screen_name &lt;list&gt;, lang &lt;chr&gt;,</span>
+<span class="co">#&gt; #   quoted_status_id &lt;chr&gt;, quoted_text &lt;chr&gt;, quoted_created_at &lt;dttm&gt;,</span>
+<span class="co">#&gt; #   quoted_source &lt;chr&gt;, quoted_favorite_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   quoted_retweet_count &lt;int&gt;, quoted_user_id &lt;chr&gt;, quoted_screen_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   quoted_name &lt;chr&gt;, quoted_followers_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   quoted_friends_count &lt;int&gt;, quoted_statuses_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   quoted_location &lt;chr&gt;, quoted_description &lt;chr&gt;, quoted_verified &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   retweet_status_id &lt;chr&gt;, retweet_text &lt;chr&gt;, retweet_created_at &lt;dttm&gt;,</span>
+<span class="co">#&gt; #   retweet_source &lt;chr&gt;, retweet_favorite_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   retweet_retweet_count &lt;int&gt;, retweet_user_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   retweet_screen_name &lt;chr&gt;, retweet_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   retweet_followers_count &lt;int&gt;, retweet_friends_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   retweet_statuses_count &lt;int&gt;, retweet_location &lt;chr&gt;,</span>
+<span class="co">#&gt; #   retweet_description &lt;chr&gt;, retweet_verified &lt;lgl&gt;, place_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   place_name &lt;chr&gt;, place_full_name &lt;chr&gt;, place_type &lt;chr&gt;, country &lt;chr&gt;,</span>
+<span class="co">#&gt; #   country_code &lt;chr&gt;, geo_coords &lt;list&gt;, coords_coords &lt;list&gt;,</span>
+<span class="co">#&gt; #   bbox_coords &lt;list&gt;, status_url &lt;chr&gt;, name &lt;chr&gt;, location &lt;chr&gt;,</span>
+<span class="co">#&gt; #   description &lt;chr&gt;, url &lt;chr&gt;, protected &lt;lgl&gt;, followers_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   friends_count &lt;int&gt;, listed_count &lt;int&gt;, statuses_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   favourites_count &lt;int&gt;, account_created_at &lt;dttm&gt;, verified &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   profile_url &lt;chr&gt;, profile_expanded_url &lt;chr&gt;, account_lang &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   profile_banner_url &lt;chr&gt;, profile_background_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   profile_image_url &lt;chr&gt;</span></code></pre></div>
 <p>Since everyone may not have twitter developer access we have provided an example dataframe that we have previously scraped (NOTE, please set your working director to rtweetclean/vignettes to load this dataframe)…</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># From working director rtweetclean/vignettes</span>
-
-<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"example tweet text 1 @user2 @user"</span>, <span class="st">"#example #tweet 2 "</span>, <span class="st">"example tweet 3 https://t.co/G4ziCaPond"</span>, <span class="st">"example tweet 4"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">created_at</span>  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021-03-06 16:03:31"</span>,
+                <span class="st">"2021-03-05 21:57:47"</span>,
+                <span class="st">'2021-03-05 05:50:50'</span>,
+                <span class="st">'2021-03-05 7:32:33'</span><span class="op">)</span>
+<span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"example tweet text 1 @user2 @user"</span>,
+          <span class="st">"#example #tweet 2 "</span>,
+          <span class="st">"example tweet 3 https://t.co/G4ziCaPond"</span>,
+          <span class="st">"example tweet 4"</span><span class="op">)</span>
 <span class="va">retweet_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">43</span>, <span class="fl">12</span>, <span class="fl">24</span>, <span class="fl">29</span><span class="op">)</span>
 <span class="va">favorite_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">85</span>, <span class="fl">41</span>, <span class="fl">65</span>, <span class="fl">54</span><span class="op">)</span>
-<span class="va">timeline_rtweet_toy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">text</span>, <span class="va">retweet_count</span>, <span class="va">favorite_count</span><span class="op">)</span>
+<span class="va">timeline_rtweet_toy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">text</span>, <span class="va">retweet_count</span>, <span class="va">favorite_count</span>, <span class="va">created_at</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">timeline_rtweet_toy</span><span class="op">)</span>
 <span class="co">#&gt;                                      text retweet_count favorite_count</span>
 <span class="co">#&gt; 1       example tweet text 1 @user2 @user            43             85</span>
 <span class="co">#&gt; 2                      #example #tweet 2             12             41</span>
 <span class="co">#&gt; 3 example tweet 3 https://t.co/G4ziCaPond            24             65</span>
-<span class="co">#&gt; 4                         example tweet 4            29             54</span></code></pre></div>
+<span class="co">#&gt; 4                         example tweet 4            29             54</span>
+<span class="co">#&gt;            created_at</span>
+<span class="co">#&gt; 1 2021-03-06 16:03:31</span>
+<span class="co">#&gt; 2 2021-03-05 21:57:47</span>
+<span class="co">#&gt; 3 2021-03-05 05:50:50</span>
+<span class="co">#&gt; 4  2021-03-05 7:32:33</span></code></pre></div>
 </div>
 <div id="clean_df" class="section level1">
 <h1 class="hasAnchor">
@@ -151,7 +198,7 @@
 <p>proportion_of_avg_retweets = TRUE,</p>
 <p>proportion_of_avg_favorites = TRUE)</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cleaned_timeline</span> <span class="op">&lt;-</span> <span class="fu">rtweetclean</span><span class="fu">::</span><span class="fu"><a href="../reference/clean_df.html">clean_df</a></span><span class="op">(</span><span class="va">timeline_rtweet_toy</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">cleaned_timeline</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_df.html">clean_df</a></span><span class="op">(</span><span class="va">timeline_rtweet_toy</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">cleaned_timeline</span><span class="op">)</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -239,7 +286,7 @@
 <p><code>tweet_words</code> can be <strong>used with a dataframe that is returned by <code><a href="../reference/clean_df.html">clean_df()</a></code></strong> and returns a list of the most frequently used words based on the <code>text_only</code> column generated by <code><a href="../reference/clean_df.html">clean_df()</a></code>. The <code>top_n</code> argument can be adjusted to return a specified number of the most frequently used words in the <code>text_only</code> column.</p>
 <p>tweet_words(clean_rtweet_dataframe, top_n = 5)</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tweet_words_example</span> <span class="op">&lt;-</span> <span class="fu">rtweetclean</span><span class="fu">::</span><span class="fu"><a href="../reference/tweet_words.html">tweet_words</a></span><span class="op">(</span><span class="va">cleaned_timeline</span>, top_n<span class="op">=</span><span class="fl">5</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">tweet_words_example</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tweet_words.html">tweet_words</a></span><span class="op">(</span><span class="va">cleaned_timeline</span>, top_n<span class="op">=</span><span class="fl">30</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tweet_words_example</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -267,30 +314,27 @@
 <td align="left">3</td>
 <td align="right">1</td>
 </tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">1</td>
+</tr>
 </tbody>
 </table>
 </div>
 <div id="sentiment_total" class="section level1">
 <h1 class="hasAnchor">
-<a href="#sentiment_total" class="anchor"></a>sentiment_total</h1>
+<a href="#sentiment_total" class="anchor"></a>sentiment_total()</h1>
 <p>Takes the <strong>dataframe output of <code><a href="../reference/clean_df.html">clean_df()</a></code></strong> as input. Takes the <code>text_only</code> column of tweets and returns a dataframe summarizing the number of tweeted words associated with particular emotional sentiments based on the ‘crowd-sourced NRC Emotion Lexicon’ . By default all sentiments listed in the lexicon will be presented regardless of if they are included in the dataset or not. If you wish to only see the sentiments that are present in the dataset then set <code>drop_sentiment</code> to FALSE.</p>
 <p>sentiment_total(clean_rtweet_dataframe, drop_sentiment = FALSE)</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sentiment_total_example</span> <span class="op">&lt;-</span> <span class="fu">rtweetclean</span><span class="fu">::</span><span class="fu"><a href="../reference/sentiment_total.html">sentiment_total</a></span><span class="op">(</span><span class="va">cleaned_timeline</span>, drop_sentiment <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">sentiment_total_example</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sentiment_total.html">sentiment_total</a></span><span class="op">(</span><span class="va">cleaned_timeline</span>, drop_sentiment <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">sentiment_total_example</span>
-<span class="co">#&gt; # A tibble: 10 x 3</span>
-<span class="co">#&gt;    sentiment    word_count total_words</span>
-<span class="co">#&gt;    &lt;chr&gt;             &lt;dbl&gt;       &lt;int&gt;</span>
-<span class="co">#&gt;  1 anger                 0          11</span>
-<span class="co">#&gt;  2 anticipation          0          11</span>
-<span class="co">#&gt;  3 disgust               0          11</span>
-<span class="co">#&gt;  4 fear                  0          11</span>
-<span class="co">#&gt;  5 joy                   0          11</span>
-<span class="co">#&gt;  6 negative              0          11</span>
-<span class="co">#&gt;  7 positive              0          11</span>
-<span class="co">#&gt;  8 sadness               0          11</span>
-<span class="co">#&gt;  9 surprise              0          11</span>
-<span class="co">#&gt; 10 trust                 0          11</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 0 x 3</span>
+<span class="co">#&gt; # … with 3 variables: sentiment &lt;chr&gt;, word_count &lt;dbl&gt;, total_words &lt;int&gt;</span></code></pre></div>
 </div>
 <div id="engagement_by_hour" class="section level1">
 <h1 class="hasAnchor">
@@ -298,12 +342,7 @@
 <p><code>engegement_by_hour()</code> is used to return a line plot generated via ggplot2 of the combined total of likes and retweets a user received depending on the hour of day their tweets were made at. It takes either a <strong>dataframe returned by <code><a href="../reference/clean_df.html">clean_df()</a></code></strong> OR an <strong>unedited dataframe returned by the <code>rtweet</code> function <code><a href="https://rdrr.io/pkg/rtweet/man/get_timeline.html" class="external-link">get_timeline()</a></code></strong> as input and builds a graph based on the <code>created_at</code> column.</p>
 <p>engagement_by_hour(clean_rtweet_dataframe)</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_tweets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span> <span class="op">(</span>created_at  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021-03-06 16:03:31"</span>, <span class="st">"2021-03-05 21:57:47"</span>, <span class="st">'2021-03-05 05:50:50'</span><span class="op">)</span>,
-favorite_count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span>,
-retweet_count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">engagement_by_hour_example</span> <span class="op">&lt;-</span> <span class="fu">rtweetclean</span><span class="fu">::</span><span class="fu"><a href="../reference/engagement_by_hour.html">engagement_by_hour</a></span><span class="op">(</span><span class="va">my_tweets</span><span class="op">)</span>
-<span class="va">engagement_by_hour_example</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/engagement_by_hour.html">engagement_by_hour</a></span><span class="op">(</span><span class="va">cleaned_timeline</span><span class="op">)</span></code></pre></div>
 <p><img src="my-vignette_files/figure-html/engagement_by_hour_example-1.png" width="700"></p>
 </div>
   </div>
