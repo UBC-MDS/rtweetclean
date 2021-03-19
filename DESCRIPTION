@@ -21,7 +21,8 @@ Imports:
     rtweet,
     stringr,
     knitr,
-    utils
+    utils,
+    rlang
 Suggests: 
     testthat,
     covr,
