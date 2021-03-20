@@ -192,7 +192,7 @@ We welcome and recognize all contributions. Please see contributing
 guidelines in the
 [Contributing](https://github.com/UBC-MDS/rtweetclean/blob/main/.github/CONTRIBUTING.md)
 document. This repository is currently maintained by
-\[@nashmakh\](<https://github.com/nashmakh>),
-\[@calsvein\](<https://github.com/calsvein>),
-\[@MattTPin\](<https://github.com/MattTPin>),
-\[@syadk\](<https://github.com/syadk>)
+[nashmakh](https://github.com/nashmakh),
+[calsvein](https://github.com/calsvein),
+[MattTPin](https://github.com/MattTPin),
+[syadk](https://github.com/syadk).
