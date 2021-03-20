@@ -84,6 +84,22 @@ Vignette for this package can be found
 
 Below function calls are based on below example dataframe:
 
+``` r
+library(rtweetclean)
+created_at  = c("2021-03-06 16:03:31",
+                "2021-03-05 21:57:47",
+                '2021-03-05 05:50:50',
+                '2021-03-05 7:32:33')
+text <- c("example tweet text 1 @user2 @user",
+          "#example #tweet 2 ",
+          "example tweet 3 https://t.co/G4ziCaPond",
+          "example tweet 4")
+retweet_count <- c(43, 12, 24, 29)
+favorite_count <- c(85, 41, 65, 54)
+timeline_rtweet_toy <- data.frame(text, retweet_count, favorite_count, created_at)
+timeline_rtweet_toy
+```
+
     ##                                      text retweet_count favorite_count
     ## 1       example tweet text 1 @user2 @user            43             85
     ## 2                      #example #tweet 2             12             41
@@ -95,7 +111,7 @@ Below function calls are based on below example dataframe:
     ## 3 2021-03-05 05:50:50
     ## 4  2021-03-05 7:32:33
 
-1.  `clean_df()`
+Function calls in action:
 
 ``` r
 cleaned_timeline <- clean_df(timeline_rtweet_toy)
@@ -118,20 +134,14 @@ cleaned_timeline
     ## 3              1.0612245
     ## 4              0.8816327
 
-1.  `tweet_words()`
-
 ``` r
-tweet_words(cleaned_timeline, top_n=5)
+tweet_words(cleaned_timeline, top_n=3)
 ```
 
     ##     words count
     ## 1   tweet     3
     ## 2 example     3
     ## 3    text     1
-    ## 4       4     1
-    ## 5       3     1
-
-1.  `sentiment_total()`
 
 ``` r
 sentiment_total(cleaned_timeline, drop_sentiment = FALSE)
@@ -151,13 +161,13 @@ sentiment_total(cleaned_timeline, drop_sentiment = FALSE)
     ##  9 surprise              0          11
     ## 10 trust                 0          11
 
-1.  engagement\_by\_hour()
-
 ``` r
 engagement_by_hour(cleaned_timeline)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](README_files/figure-gfm/engagement_by_hour-1.png)<!-- -->
+
+<img src="engagement_plot.png" alt="engagement_plot.png" width="700"/>
 
 ## rtweetclean in the R ecosystem
 

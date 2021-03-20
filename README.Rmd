@@ -58,7 +58,7 @@ Vignette for this package can be found [here](https://ubc-mds.github.io/rtweetcl
 
 Below function calls are based on below example dataframe:
 
-```{r toy_dataset, echo=FALSE}
+```{r toy_dataset, echo=TRUE}
 library(rtweetclean)
 created_at  = c("2021-03-06 16:03:31",
                 "2021-03-05 21:57:47",
@@ -74,31 +74,29 @@ timeline_rtweet_toy <- data.frame(text, retweet_count, favorite_count, created_a
 timeline_rtweet_toy
 ```
 
-1. `clean_df()`
+Function calls in action:
+
 
 ```{r clean_df}
 cleaned_timeline <- clean_df(timeline_rtweet_toy)
 cleaned_timeline
 ```
 
-2. `tweet_words()`
 
 ```{r tweet_words}
-tweet_words(cleaned_timeline, top_n=5)
+tweet_words(cleaned_timeline, top_n=3)
 ```
 
-3. `sentiment_total()`   
 
 ```{r sentiment_total}
 sentiment_total(cleaned_timeline, drop_sentiment = FALSE)
 ```
 
-4. engagement_by_hour()
-
-```{r}
+```{r engagement_by_hour, echo=TRUE, results='hide'}
 engagement_by_hour(cleaned_timeline)
 ```
 
+<img src="engagement_plot.png" alt="engagement_plot.png" width="700"/> 
 
 
 ## rtweetclean in the R ecosystem
