@@ -1,8 +1,8 @@
 #' Adds new column(s) to dataframe returned by rtweet get_timeline() function with
 #' default parameters based on user specified input
 #'
-#'Returns a new dataframe containing additional columns that were not in the original
-#'Generatable columns include...
+#' Returns a new dataframe containing additional columns that were not in the original
+#' Generatable columns include...
 #'  text_only: strips emojis, hashtags, and hyperlinks from the text column
 #'  word_count: counts the number of words contained in the text_only column
 #'  emojis: contains the extracted emojis from text
@@ -139,9 +139,9 @@ clean_df <- function(raw_tweets_df,
 
 #' Most common words
 #'
-#'Returns the top_n most common words and counts of occurrences from a list of tweets.
-#'The output is sorted descending by the count of words and in reverse
-#'alphabetical order for any word ties.
+#' Returns the top_n most common words and counts of occurrences from a list of tweets.
+#' The output is sorted descending by the count of words and in reverse
+#' alphabetical order for any word ties.
 #'
 #' @param clean_dataframe dataframe
 #' @param top_n numeric
@@ -150,10 +150,10 @@ clean_df <- function(raw_tweets_df,
 #' @export
 #'
 #' @examples
-#' #' @param clean_dataframe data.frame
+#' @param clean_dataframe dataframe
 #' @param top_n numeric
 #'
-#' @return data.frame
+#' @return dataframe
 #' @export
 #'
 #' @examples
@@ -169,7 +169,7 @@ tweet_words <- function(clean_dataframe, top_n=1) {
   if(!is.data.frame(clean_dataframe)){
     stop("Input needs to be of type data.frame")
   }
-   # check that top_n is an int
+  # check that top_n is an int
   if(!is.numeric(top_n)){
     stop("Input needs to be of type data.frame")
   }
@@ -196,13 +196,13 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 
 #' Sentiment Word Counts
 #'
-#'Takes an input of of single english words and outputs the number of words associated
-#'with eight emotions and positive/negative sentiment. This is based on the the
-#'crowd-sourced NRC Emotion Lexicon, which associates words with eight basic emotions
-#'(anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two
-#'sentiments (negative and positive). For more information on NRC:
-#'http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm
-#'Note that words can be 0:n with emotions (either associated with none, 1, or many).
+#' Takes an input of of single english words and outputs the number of words associated
+#' with eight emotions and positive/negative sentiment. This is based on the the
+#' crowd-sourced NRC Emotion Lexicon, which associates words with eight basic emotions
+#' (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two
+#' sentiments (negative and positive). For more information on NRC:
+#' http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm
+#' Note that words can be 0:n with emotions (either associated with none, 1, or many).
 #'
 #' @param tweets 1-column dataframe
 #' @param drop_sentiment A true/false bool that drops sentiment rows if no words are
@@ -212,12 +212,12 @@ tweet_words <- function(clean_dataframe, top_n=1) {
 #' @export
 #'
 #' @examples
-#'tweets <- data.frame(text_only = c("this is example tweet 1",
+#' tweets <- data.frame(text_only = c("this is example tweet 1",
 #'                              "this is example tweet 2 with a few extra words",
 #'                              "is third",
 #'                              "4th tweet",
 #'                              "fifth tweet"))
-#'sentiment_total(tweets, drop_sentiment = FALSE)
+#' sentiment_total(tweets, drop_sentiment = FALSE)
 sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 
   # Check tweets is a list
@@ -239,10 +239,10 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
   # lexicon
   # emotion_lexicon_df <- read.csv("~/Documents/MDS/block_5/524/rtweetclean/data/NRC-Emotion-Lexicon-Wordlevel-v0.92.txt",
   #                                header = TRUE, sep = "\t") # NRC dataset
-  
+
   # emotion_lexicon_df <- read.csv(usethis::use_data("NRC-Emotion-Lexicon-Wordlevel-v0.92.txt"),
   #                                header = TRUE, sep = "\t") # NRC dataset
-  
+
   emotion_lexicon_df <- nrc_emotion_lexicon
 
   # inner join on 2 dataframes
@@ -276,10 +276,10 @@ sentiment_total <- function(tweets, drop_sentiment = FALSE) {
 #' @export
 #'
 #' @examples
-#'my_tweets <- data.frame (created_at  = c("2021-03-06 16:03:31", "2021-03-05 21:57:47", '2021-03-05 05:50:50'),
-#'favorite_count = c(20, 10, 2),
-#'retweet_count = c(20, 10, 2))
-#'engagement_by_hour(my_tweets)
+#' my_tweets <- data.frame (created_at  = c("2021-03-06 16:03:31", "2021-03-05 21:57:47", '2021-03-05 05:50:50'),
+#' favorite_count = c(20, 10, 2),
+#' retweet_count = c(20, 10, 2))
+#' engagement_by_hour(my_tweets)
 engagement_by_hour <- function(tweets_df) {
 
   # Check input type of tweets_df
@@ -298,7 +298,6 @@ engagement_by_hour <- function(tweets_df) {
   grouped_df %>% ggplot2::ggplot(ggplot2::aes(x=hour, y=average_engagement)) +
     ggplot2::geom_line() +
     ggplot2::labs(title = 'Average engagement (likes + retweets) by hour',
-         x = 'Time (hour of day)',
-         y = 'Average engagement')
+                  x = 'Time (hour of day)',
+                  y = 'Average engagement')
 }
-
